@@ -58,9 +58,9 @@ const Song: React.FC<SongProps> = ({ id, title_cyr, title_lat, artists, lyrics }
               const currentWordIndex = parseInt(part);
 
               //find the current word
-              const currentWordInfo: Word = words.find(({word_in_line_nr}: Word) =>
-                   word_in_line_nr === currentWordIndex
-              )  ?? {word_in_line_nr: -1, qazaq_cyr: '', qazaq_lat: '', english: '', russian: ''};
+              const currentWordInfo: Word = words.find(({ word_in_line_nr }: Word) =>
+                word_in_line_nr === currentWordIndex
+              ) ?? { word_in_line_nr: -1, qazaq_cyr: '', qazaq_lat: '', english: '', russian: '' };
 
               const color = ['#D7FF63', '#FFACD6', '#AEDEF8', 'FFFF4F'][currentWordIndex] || '#ffff0077';
 
@@ -68,8 +68,7 @@ const Song: React.FC<SongProps> = ({ id, title_cyr, title_lat, artists, lyrics }
 
               return (
                 <HighlightedWord
-                  title={`${
-                    [currentWordInfo?.qazaq_cyr, currentWordInfo?.english, currentWordInfo?.russian]
+                  title={`${[currentWordInfo?.qazaq_cyr, currentWordInfo?.english, currentWordInfo?.russian]
                     .filter((word) => word !== '')
                     .join(' - ')}`
                   }
@@ -106,12 +105,12 @@ const Song: React.FC<SongProps> = ({ id, title_cyr, title_lat, artists, lyrics }
 
   return (
     <SiteContainer key={`site`}>
-      <Site/>
+      <Site />
       <Title key={`title`}>
         <TitleWrapper>
           {title_cyr} ({title_lat}) - {artists.map(({ name_cyr }) => `${name_cyr}`).join(', ')}
         </TitleWrapper>
-        <Hr/>
+        <Hr />
       </Title>
       <Lyrics key={`lyrics`}>
         {renderLyrics()}
