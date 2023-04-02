@@ -148,6 +148,18 @@ const SiteContainer = styled.div`
   font-size: 14pt;
   font-weight: 300;
   font-family: ${roboto.style.fontFamily};
+  @media (max-width: 1400px) {
+    margin-inline: 25%;
+  }
+  @media (max-width: 1200px) {
+    margin-inline: 20%;
+  }
+  @media (max-width: 900px) {
+    margin-inline: 10%;
+  }
+  @media (max-width: 700px) {
+    margin-inline: 1%;
+  }
 `;
 
 const VerseContainer = styled.div`
