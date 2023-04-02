@@ -192,7 +192,7 @@ const HighlightedWord = styled.span<{ color: string }>`
   background-color: ${(props) => props.color};
   cursor: pointer;
   &:hover {
-    background-color: ${(props) => (props.color) + '55'}};
+    background-color: ${(props) => (props.color) + 'aa'}};
   }
 `;
 
