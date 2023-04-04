@@ -1,7 +1,6 @@
 // Import necessary libraries and components at the top
 import axios from 'axios';
 import Home from '../components/Home';
-
 import type { GetStaticProps } from 'next';
 
 // Fetch the song data from your API
