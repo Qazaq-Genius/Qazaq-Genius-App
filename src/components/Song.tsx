@@ -15,6 +15,7 @@ export interface SongProps {
   title_cyr: string;
   title_lat: string;
   cover_art: string;
+  release_date: string;
   artists: {
     id: number;
     name_cyr: string;
