@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { createGlobalStyle } from 'styled-components'
 import { Roboto } from 'next/font/google';
+import { Url } from 'next/dist/shared/lib/router/router';
 
 const roboto = Roboto({
   weight: ['300', '500'],
@@ -9,10 +10,11 @@ const roboto = Roboto({
 })
 
 
-interface SongProps {
+export interface SongProps {
   id: number;
   title_cyr: string;
   title_lat: string;
+  cover_art: string;
   artists: {
     id: number;
     name_cyr: string;
@@ -40,7 +42,7 @@ interface Lyrics {
 }
 
 
-const Song: React.FC<SongProps> = ({ id, title_cyr, title_lat, artists, lyrics }) => {
+const Song: React.FC<SongProps> = ({ id, release_date, title_cyr, title_lat, artists, lyrics }) => {
   const renderLyrics = () => {
     return Object.values(lyrics).flatMap((lines, index) => {
       const renderVerse = (line: any, lang: string) => {
@@ -110,8 +112,9 @@ const Song: React.FC<SongProps> = ({ id, title_cyr, title_lat, artists, lyrics }
         <TitleWrapper>
           {title_cyr} ({title_lat}) - {artists.map(({ name_cyr }) => `${name_cyr}`).join(', ')}
         </TitleWrapper>
-        <Hr />
       </Title>
+      <div>Release date {(new Date(Date.parse(release_date))).toLocaleDateString()}</div>
+      <Hr />
       <Lyrics key={`lyrics`}>
         {renderLyrics()}
       </Lyrics>
@@ -119,7 +122,7 @@ const Song: React.FC<SongProps> = ({ id, title_cyr, title_lat, artists, lyrics }
   );
 };
 
-// hr tag with margina above
+// hr tag with margin above
 const Hr = styled.hr`
   border-style: solid;
   border-color: #ccc;
