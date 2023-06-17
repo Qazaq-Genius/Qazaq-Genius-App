@@ -9,6 +9,13 @@ module.exports = {
         'highlight-blue':         '#aedef8',
         'highlight-yellow':       '#ffff4f',
         'highlight-dark-yellow':  '#ffff0077',
+      },
+      margin: {
+        '30%':   '30%',
+        '25%':   '25%',
+        '12.5%': '12.5%',
+        '5%':    '5%',
+        '0.5%':  '0.5%',
       }
     }
   },
