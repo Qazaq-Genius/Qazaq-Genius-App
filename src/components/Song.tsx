@@ -1,8 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
-import { createGlobalStyle } from 'styled-components'
 import { Roboto } from 'next/font/google';
-import { Url } from 'next/dist/shared/lib/router/router';
 
 const roboto = Roboto({
   weight: ['300', '500'],
@@ -67,15 +64,16 @@ const renderLine = (line: string, lang: string, words: Word[]) => {
 
     const word = match.next().value.groups.original_word;
 
+    const mouseover_string = `${[currentWordInfo?.qazaq_cyr, currentWordInfo?.english, currentWordInfo?.russian]
+      .filter((word) => word !== '')
+      .join(' - ')}`;
+
     return (
       <span /*HighlightedWord*/
         className={`cursor-pointer bg-${color} hover:bg-${color}`}
-        title={`${[currentWordInfo?.qazaq_cyr, currentWordInfo?.english, currentWordInfo?.russian]
-          .filter((word) => word !== '')
-          .join(' - ')}`
-        }
+        title={mouseover_string}
         color={color}
-        key={`${word}`}
+        key={word}
       >
         {word}
       </span> /*HighlightedWord*/
@@ -85,12 +83,12 @@ const renderLine = (line: string, lang: string, words: Word[]) => {
 
 const renderVerse = (lines: Record<string, Lyrics>, lang: string) => {
   return Object.values(lines).map(({ line_nr, qazaq_cyr, qazaq_lat, english, russian, original_lang, words }: Lyrics) => {
-    const qazaq_line = eval(original_lang);
+    const original_lang_line = eval(original_lang); // there should be a better way to do this, possibly with a switch statement
 
     return (
-      <div className='p-4 mb-4' key={`${line_nr}`}> {/*Container*/}
+      <div className='p-4 mb-4' key={line_nr}> {/*Container*/}
         <p className='m-0 font-medium' key={`${line_nr}-${lang}`}>  {/*OriginalLangLine*/}
-          {renderLine(qazaq_line, lang, words)}
+          {renderLine(original_lang_line, lang, words)}
         </p> {/*OriginalLangLine*/}
         <p className='m-0' key={`${line_nr}-english`}> {/*Line*/}
           {renderLine(english, lang, words)}
@@ -105,9 +103,8 @@ const renderVerse = (lines: Record<string, Lyrics>, lang: string) => {
 
 const renderLyrics = (lyrics: Record<string, Record<string, any>>) => {
   return Object.values(lyrics).flatMap((lines, index) => {
-    console.log(lines);
     return (
-      <div className="p-4 mb-4" key={`${index}`}> {/*VerseContainer*/}
+      <div className="p-4 mb-4" key={index}> {/*VerseContainer*/}
         {renderVerse(lines, "qazaq_cyr")}
       </div> /*VerseContainer*/
     );
@@ -115,17 +112,19 @@ const renderLyrics = (lyrics: Record<string, Record<string, any>>) => {
 };
 
 const Song: React.FC<SongProps> = ({ id, release_date, title_cyr, title_lat, artists, lyrics }) => {
+  const formattedReleaseDate = (new Date(Date.parse(release_date))).toLocaleDateString();
+
   return (
     <>
       <div className={`p-4 mt-0 text-lg font-extralight ${roboto.className} sm:mx-1% md:mx-10% lg:mx-25% xl:mx-30% bg-white`} key={`site`}> {/*SiteContainer*/}
-        <h3 className='mt-0' key={`title`}> {/*Title*/}
+        <h3 className='mt-0'> {/*Title*/}
           <span className='bg-highlight-dark-yellow'> {/*TitleWrapper*/}
-            {title_cyr} ({title_lat}) - {artists.map(({ name_cyr }) => `${name_cyr}`).join(', ')}
+            {title_cyr} ({title_lat}) - {artists.map(({ name_cyr }) => name_cyr).join(', ')}
           </span> {/*TitleWrapper*/}
         </h3> {/*Title*/}
-        <div>Release date {(new Date(Date.parse(release_date))).toLocaleDateString()}</div>
+        <div>Release date {formattedReleaseDate}</div>
         <hr className='border-solid mt-2 border-gray-500' />
-        <div key={`lyrics`}> {/*Lyrics*/}
+        <div> {/*Lyrics*/}
           {renderLyrics(lyrics)}
         </div> {/*Lyrics*/}
       </div> {/*SiteContainer*/}
