@@ -65,12 +65,18 @@ const Song: React.FC<SongProps> = ({ id, release_date, title_cyr, title_lat, art
                 word_in_line_nr === currentWordIndex
               ) ?? { word_in_line_nr: -1, qazaq_cyr: '', qazaq_lat: '', english: '', russian: '' };
 
-              const color = ['#D7FF63', '#FFACD6', '#AEDEF8', 'FFFF4F'][currentWordIndex] || '#ffff0077';
+              const color = [
+                'highlight-green',
+                'highlight-pink',
+                'highlight-blue',
+                'highlight-yellow'
+              ][currentWordIndex] || 'highlight-dark-yellow';
 
               const word = match.next().value.groups.original_word;
 
               return (
-                <HighlightedWord
+                <span /*HighlightedWord*/
+                className={`cursor-pointer bg-${color} hover:bg-${color}`}
                   title={`${[currentWordInfo?.qazaq_cyr, currentWordInfo?.english, currentWordInfo?.russian]
                     .filter((word) => word !== '')
                     .join(' - ')}`
@@ -79,79 +85,53 @@ const Song: React.FC<SongProps> = ({ id, release_date, title_cyr, title_lat, art
                   key={`${word}`}
                 >
                   {word}
-                </HighlightedWord>
+                </span> /*HighlightedWord*/
               );
             });
           };
           return (
-            <Container key={`${index}-${line_nr}`}>
-              <OriginalLangLine key={`${index}-${line_nr}-qazaq_cyr`}>
+            <div className='p-4 mb-4' key={`${index}-${line_nr}`}> {/*Container*/}
+              <p className='m-0 font-bold'  key={`${index}-${line_nr}-qazaq_cyr`}>  {/*OriginalLangLine*/}
                 {renderLine(qazaq_line, "qazaq_cyr")}
-              </OriginalLangLine>
-              <Line key={`${index}-${line_nr}-english`}>
+              </p> {/*OriginalLangLine*/}
+              <p className='m-0' key={`${index}-${line_nr}-english`}> {/*Line*/}
                 {renderLine(english, "english")}
-              </Line>
-              <Line key={`${index}-${line_nr}-russian`}>
+              </p> {/*Line*/}
+              <p className='m-0'  key={`${index}-${line_nr}-russian`}> {/*Line*/}
                 {renderLine(russian, "russian")}
-              </Line>
-            </Container>
+              </p> {/*Line*/}
+            </div> /*Container*/
           );
         });
       };
       return (
-        <VerseContainer key={`${index}`}>
+        <div className="p-4 mb-4" key={`${index}`}> {/*VerseContainer*/}
           {renderVerse(lines, "qazaq_cyr")}
-        </VerseContainer>
+        </div> /*VerseContainer*/
       );
     });
   };
 
   return (
-    <SiteContainer key={`site`}>
-      <Site />
-      <Title key={`title`}>
-        <TitleWrapper>
+    <>
+    <div className='p-4 mt-0 text-sm font-light font-roboto mx-60 lg:mx-96 bg-white' key={`site`}> {/*SiteContainer*/}
+      <h3 className='mt-0' key={`title`}> {/*Title*/}
+        <span className='bg-highlight-dark-yellow'> {/*TitleWrapper*/}
           {title_cyr} ({title_lat}) - {artists.map(({ name_cyr }) => `${name_cyr}`).join(', ')}
-        </TitleWrapper>
-      </Title>
+        </span> {/*TitleWrapper*/}
+      </h3> {/*Title*/}
       <div>Release date {(new Date(Date.parse(release_date))).toLocaleDateString()}</div>
-      <Hr />
-      <Lyrics key={`lyrics`}>
+      <hr className='border-solid mt-2 border-gray-500' />
+      <div className='whitespace-pre-wrap' key={`lyrics`}> {/*Lyrics*/}
         {renderLyrics()}
-      </Lyrics>
-    </SiteContainer>
+      </div> {/*Lyrics*/}
+    </div> {/*SiteContainer*/}
+    </>
   );
 };
 
-// hr tag with margin above
-const Hr = styled.hr`
-  border-style: solid;
-  border-color: #ccc;
-  margin-top: 4vh;
-`;
-
-const TitleWrapper = styled.span`
-  background-color: #ffff0077;
-`;
-
-const Title = styled.h3`
-  margin-top: 0;
-`;
-
-const Site = createGlobalStyle`
-  body {
-    background-color: #AEDEF877;
-  }
-`;
-
+/*
 const SiteContainer = styled.div`
-  background-color: #FFFFFF;
-  margin-inline: 30%;
-  padding: 16px;
-  margin-top: 0px;
-  font-size: 14pt;
-  font-weight: 300;
-  font-family: ${roboto.style.fontFamily};
   @media (max-width: 1400px) {
     margin-inline: 25%;
   }
@@ -164,40 +144,7 @@ const SiteContainer = styled.div`
   @media (max-width: 700px) {
     margin-inline: 1%;
   }
-`;
+`;*/
 
-const VerseContainer = styled.div`
-  padding: 16px;
-  margin-bottom: 16px;
-`;
-
-const Container = styled.div`
-  padding: 16px;
-  margin-bottom: 16px;
-`;
-
-
-const Lyrics = styled.div`
-  white-space: pre-wrap;
-`;
-
-const Line = styled.p`
-  margin-block: 1.5vh;
-  margin: 0;
-`;
-
-const OriginalLangLine = styled.p`
-  font-weight: 500;
-  margin-block: 1.5vh;
-  margin: 0;
-`;
-
-const HighlightedWord = styled.span<{ color: string }>`
-  background-color: ${(props) => props.color};
-  cursor: pointer;
-  &:hover {
-    background-color: ${(props) => (props.color) + 'aa'}};
-  }
-`;
 
 export default Song;
