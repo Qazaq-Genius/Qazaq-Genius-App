@@ -1,11 +1,6 @@
 import React from 'react';
-import { Roboto } from 'next/font/google';
-
-const roboto = Roboto({
-  weight: ['300', '500'],
-  subsets: ['latin', 'cyrillic', 'cyrillic-ext', 'latin-ext'],
-  display: 'swap',
-})
+import { Lyrics, Word } from '../types';
+import SongInfo from '../components/SongInfo';
 
 
 export interface SongProps {
@@ -22,23 +17,6 @@ export interface SongProps {
   lyrics: Record<string, Record<string, any>>;
 }
 
-interface Word {
-  word_in_line_nr: number;
-  qazaq_cyr: string;
-  qazaq_lat: string;
-  english: string;
-  russian: string;
-}
-
-interface Lyrics {
-  line_nr: number;
-  qazaq_cyr: string;
-  qazaq_lat: string;
-  english: string;
-  russian: string;
-  original_lang: string;
-  words: Word[];
-}
 
 const renderLine = (line: string, lang: string, words: Word[]) => {
   const parts = line.split(/<(?<digit>\d)>(?:.+?)<\/\k<digit>>/gu);
@@ -111,25 +89,17 @@ const renderLyrics = (lyrics: Record<string, Record<string, any>>) => {
   });
 };
 
-const Song: React.FC<SongProps> = ({ id, release_date, title_cyr, title_lat, artists, lyrics }) => {
+const Song: React.FC<SongProps> = ({ id, release_date, title_cyr, title_lat, artists, lyrics, cover_art }) => {
   // we need to format the release date with locale because every client will have a different locale
   // and this destroys the hydration
   const formattedReleaseDate = (new Date(Date.parse(release_date))).toLocaleDateString('en-GB');
 
   return (
     <>
-      <div className={`p-4 mt-0 text-lg font-extralight ${roboto.className} sm:mx-1% md:mx-10% lg:mx-25% xl:mx-30% bg-white`} key={`site`}> {/*SiteContainer*/}
-        <h3 className='mt-0'> {/*Title*/}
-          <span className='bg-highlight-dark-yellow'> {/*TitleWrapper*/}
-            {title_cyr} ({title_lat}) - {artists.map(({ name_cyr }) => name_cyr).join(', ')}
-          </span> {/*TitleWrapper*/}
-        </h3> {/*Title*/}
-        <div>Release date {formattedReleaseDate}</div>
-        <hr className='border-solid mt-2 border-gray-500' />
-        <div> {/*Lyrics*/}
-          {renderLyrics(lyrics)}
-        </div> {/*Lyrics*/}
-      </div> {/*SiteContainer*/}
+      <hr className='border-solid mt-2 border-gray-500' />
+      <div> {/*Lyrics*/}
+        {renderLyrics(lyrics)}
+      </div> {/*Lyrics*/}
     </>
   );
 };
