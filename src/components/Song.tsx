@@ -7,6 +7,7 @@ import { Url } from 'next/dist/shared/lib/router/router';
 const roboto = Roboto({
   weight: ['300', '500'],
   subsets: ['latin', 'cyrillic', 'cyrillic-ext', 'latin-ext'],
+  display: 'swap',
 })
 
 
@@ -91,7 +92,7 @@ const Song: React.FC<SongProps> = ({ id, release_date, title_cyr, title_lat, art
           };
           return (
             <div className='p-4 mb-4' key={`${index}-${line_nr}`}> {/*Container*/}
-              <p className='m-0 font-bold'  key={`${index}-${line_nr}-qazaq_cyr`}>  {/*OriginalLangLine*/}
+              <p className='m-0 font-medium'  key={`${index}-${line_nr}-qazaq_cyr`}>  {/*OriginalLangLine*/}
                 {renderLine(qazaq_line, "qazaq_cyr")}
               </p> {/*OriginalLangLine*/}
               <p className='m-0' key={`${index}-${line_nr}-english`}> {/*Line*/}
@@ -114,7 +115,7 @@ const Song: React.FC<SongProps> = ({ id, release_date, title_cyr, title_lat, art
 
   return (
     <>
-    <div className='p-4 mt-0 text-sm font-light font-roboto mx-60 lg:mx-96 bg-white' key={`site`}> {/*SiteContainer*/}
+    <div className={`p-4 mt-0 text-lg font-extralight ${roboto.className} mx-60 lg:mx-96 bg-white`} key={`site`}> {/*SiteContainer*/}
       <h3 className='mt-0' key={`title`}> {/*Title*/}
         <span className='bg-highlight-dark-yellow'> {/*TitleWrapper*/}
           {title_cyr} ({title_lat}) - {artists.map(({ name_cyr }) => `${name_cyr}`).join(', ')}
@@ -122,7 +123,7 @@ const Song: React.FC<SongProps> = ({ id, release_date, title_cyr, title_lat, art
       </h3> {/*Title*/}
       <div>Release date {(new Date(Date.parse(release_date))).toLocaleDateString()}</div>
       <hr className='border-solid mt-2 border-gray-500' />
-      <div className='whitespace-pre-wrap' key={`lyrics`}> {/*Lyrics*/}
+      <div key={`lyrics`}> {/*Lyrics*/}
         {renderLyrics()}
       </div> {/*Lyrics*/}
     </div> {/*SiteContainer*/}

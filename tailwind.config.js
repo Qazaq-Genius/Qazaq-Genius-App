@@ -3,9 +3,6 @@ module.exports = {
   darkMode: false, // or 'media' or 'class'
   theme: {
     extend: {
-      fontFamily: {
-        'roboto': ['Roboto', 'sans-serif'],
-      },
       colors: {
         'highlight-green':        '#d7ff63',
         'highlight-pink':         '#ffacd6',
