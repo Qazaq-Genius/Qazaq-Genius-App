@@ -1,13 +1,6 @@
 import React from 'react';
-import styled from 'styled-components';
-import { createGlobalStyle } from 'styled-components'
-import { Roboto } from 'next/font/google';
-import { Url } from 'next/dist/shared/lib/router/router';
-
-const roboto = Roboto({
-  weight: ['300', '500'],
-  subsets: ['latin', 'cyrillic', 'cyrillic-ext', 'latin-ext'],
-})
+import { Lyrics, Word } from '../types';
+import SongInfo from '../components/SongInfo';
 
 
 export interface SongProps {
@@ -24,180 +17,91 @@ export interface SongProps {
   lyrics: Record<string, Record<string, any>>;
 }
 
-interface Word {
-  word_in_line_nr: number;
-  qazaq_cyr: string;
-  qazaq_lat: string;
-  english: string;
-  russian: string;
-}
 
-interface Lyrics {
-  line_nr: number;
-  qazaq_cyr: string;
-  qazaq_lat: string;
-  english: string;
-  russian: string;
-  original_lang: string;
-  words: Word[];
-}
+const renderLine = (line: string, lang: string, words: Word[]) => {
+  const parts = line.split(/<(?<digit>\d)>(?:.+?)<\/\k<digit>>/gu);
+  const match = line.matchAll(/<(?<digit>[0-9])>(?<original_word>.+?)<\/\k<digit>>/gu);
 
+  return parts.map((part, i) => {
+    if (i % 2 === 0) {
+      return part;
+    }
+    const currentWordIndex = parseInt(part);
 
-const Song: React.FC<SongProps> = ({ id, release_date, title_cyr, title_lat, artists, lyrics }) => {
-  const renderLyrics = () => {
-    return Object.values(lyrics).flatMap((lines, index) => {
-      const renderVerse = (line: any, lang: string) => {
-        return Object.values(lines).map(({ line_nr, qazaq_cyr, qazaq_lat, english, russian, original_lang, words }: Lyrics) => {
-          const qazaq_line = eval(original_lang);
+    //find the current word
+    const currentWordInfo: Word = words.find(({ word_in_line_nr }: Word) =>
+      word_in_line_nr === currentWordIndex
+    ) ?? { word_in_line_nr: -1, qazaq_cyr: '', qazaq_lat: '', english: '', russian: '' };
 
-          const renderLine = (line: string, lang: string) => {
-            const parts = line.split(/<(?<digit>\d)>(?:.+?)<\/\k<digit>>/gu);
-            const match = line.matchAll(/<(?<digit>[0-9])>(?<original_word>.+?)<\/\k<digit>>/gu);
+    const color = [
+      'highlight-green',
+      'highlight-pink',
+      'highlight-blue',
+      'highlight-yellow'
+    ][currentWordIndex] || 'highlight-dark-yellow';
 
-            return parts.map((part, i) => {
-              if (i % 2 === 0) {
-                return part;
-              }
-              const currentWordIndex = parseInt(part);
+    const word = match.next().value.groups.original_word;
 
-              //find the current word
-              const currentWordInfo: Word = words.find(({ word_in_line_nr }: Word) =>
-                word_in_line_nr === currentWordIndex
-              ) ?? { word_in_line_nr: -1, qazaq_cyr: '', qazaq_lat: '', english: '', russian: '' };
+    const mouseover_string = `${[currentWordInfo?.qazaq_cyr, currentWordInfo?.english, currentWordInfo?.russian]
+      .filter((word) => word !== '')
+      .join(' - ')}`;
 
-              const color = ['#D7FF63', '#FFACD6', '#AEDEF8', 'FFFF4F'][currentWordIndex] || '#ffff0077';
-
-              const word = match.next().value.groups.original_word;
-
-              return (
-                <HighlightedWord
-                  title={`${[currentWordInfo?.qazaq_cyr, currentWordInfo?.english, currentWordInfo?.russian]
-                    .filter((word) => word !== '')
-                    .join(' - ')}`
-                  }
-                  color={color}
-                  key={`${word}`}
-                >
-                  {word}
-                </HighlightedWord>
-              );
-            });
-          };
-          return (
-            <Container key={`${index}-${line_nr}`}>
-              <OriginalLangLine key={`${index}-${line_nr}-qazaq_cyr`}>
-                {renderLine(qazaq_line, "qazaq_cyr")}
-              </OriginalLangLine>
-              <Line key={`${index}-${line_nr}-english`}>
-                {renderLine(english, "english")}
-              </Line>
-              <Line key={`${index}-${line_nr}-russian`}>
-                {renderLine(russian, "russian")}
-              </Line>
-            </Container>
-          );
-        });
-      };
-      return (
-        <VerseContainer key={`${index}`}>
-          {renderVerse(lines, "qazaq_cyr")}
-        </VerseContainer>
-      );
-    });
-  };
-
-  return (
-    <SiteContainer key={`site`}>
-      <Site />
-      <Title key={`title`}>
-        <TitleWrapper>
-          {title_cyr} ({title_lat}) - {artists.map(({ name_cyr }) => `${name_cyr}`).join(', ')}
-        </TitleWrapper>
-      </Title>
-      <div>Release date {(new Date(Date.parse(release_date))).toLocaleDateString()}</div>
-      <Hr />
-      <Lyrics key={`lyrics`}>
-        {renderLyrics()}
-      </Lyrics>
-    </SiteContainer>
-  );
+    return (
+      <span /*HighlightedWord*/
+        className={`cursor-pointer bg-${color} hover:bg-${color}`}
+        title={mouseover_string}
+        color={color}
+        key={word}
+      >
+        {word}
+      </span> /*HighlightedWord*/
+    );
+  });
 };
 
-// hr tag with margin above
-const Hr = styled.hr`
-  border-style: solid;
-  border-color: #ccc;
-  margin-top: 4vh;
-`;
+const renderVerse = (lines: Record<string, Lyrics>, lang: string) => {
+  return Object.values(lines).map(({ line_nr, qazaq_cyr, qazaq_lat, english, russian, original_lang, words }: Lyrics) => {
+    const original_lang_line = eval(original_lang); // there should be a better way to do this, possibly with a switch statement
 
-const TitleWrapper = styled.span`
-  background-color: #ffff0077;
-`;
+    return (
+      <div className='p-4 mb-4' key={line_nr}> {/*Container*/}
+        <p className='m-0 font-medium' key={`${line_nr}-${lang}`}>  {/*OriginalLangLine*/}
+          {renderLine(original_lang_line, lang, words)}
+        </p> {/*OriginalLangLine*/}
+        <p className='m-0' key={`${line_nr}-english`}> {/*Line*/}
+          {renderLine(english, lang, words)}
+        </p> {/*Line*/}
+        <p className='m-0' key={`${line_nr}-russian`}> {/*Line*/}
+          {renderLine(russian, lang, words)}
+        </p> {/*Line*/}
+      </div> /*Container*/
+    );
+  });
+};
 
-const Title = styled.h3`
-  margin-top: 0;
-`;
+const renderLyrics = (lyrics: Record<string, Record<string, any>>) => {
+  return Object.values(lyrics).flatMap((lines, index) => {
+    return (
+      <div className="p-4 mb-4" key={index}> {/*VerseContainer*/}
+        {renderVerse(lines, "qazaq_cyr")}
+      </div> /*VerseContainer*/
+    );
+  });
+};
 
-const Site = createGlobalStyle`
-  body {
-    background-color: #AEDEF877;
-  }
-`;
+const Song: React.FC<SongProps> = ({ id, release_date, title_cyr, title_lat, artists, lyrics, cover_art }) => {
+  // we need to format the release date with locale because every client will have a different locale
+  // and this destroys the hydration
+  const formattedReleaseDate = (new Date(Date.parse(release_date))).toLocaleDateString('en-GB');
 
-const SiteContainer = styled.div`
-  background-color: #FFFFFF;
-  margin-inline: 30%;
-  padding: 16px;
-  margin-top: 0px;
-  font-size: 14pt;
-  font-weight: 300;
-  font-family: ${roboto.style.fontFamily};
-  @media (max-width: 1400px) {
-    margin-inline: 25%;
-  }
-  @media (max-width: 1200px) {
-    margin-inline: 20%;
-  }
-  @media (max-width: 900px) {
-    margin-inline: 10%;
-  }
-  @media (max-width: 700px) {
-    margin-inline: 1%;
-  }
-`;
-
-const VerseContainer = styled.div`
-  padding: 16px;
-  margin-bottom: 16px;
-`;
-
-const Container = styled.div`
-  padding: 16px;
-  margin-bottom: 16px;
-`;
-
-
-const Lyrics = styled.div`
-  white-space: pre-wrap;
-`;
-
-const Line = styled.p`
-  margin-block: 1.5vh;
-  margin: 0;
-`;
-
-const OriginalLangLine = styled.p`
-  font-weight: 500;
-  margin-block: 1.5vh;
-  margin: 0;
-`;
-
-const HighlightedWord = styled.span<{ color: string }>`
-  background-color: ${(props) => props.color};
-  cursor: pointer;
-  &:hover {
-    background-color: ${(props) => (props.color) + 'aa'}};
-  }
-`;
+  return (
+    <>
+      <hr className='border-solid mt-2 border-gray-500' />
+      <div> {/*Lyrics*/}
+        {renderLyrics(lyrics)}
+      </div> {/*Lyrics*/}
+    </>
+  );
+};
 
 export default Song;
