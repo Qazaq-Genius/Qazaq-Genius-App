@@ -115,7 +115,7 @@ const Song: React.FC<SongProps> = ({ id, release_date, title_cyr, title_lat, art
 
   return (
     <>
-    <div className={`p-4 mt-0 text-lg font-extralight ${roboto.className} mx-60 lg:mx-96 bg-white`} key={`site`}> {/*SiteContainer*/}
+    <div className={`p-4 mt-0 text-lg font-extralight ${roboto.className} sm:mx-1% md:mx-10% lg:mx-25% xl:mx-30% bg-white`} key={`site`}> {/*SiteContainer*/}
       <h3 className='mt-0' key={`title`}> {/*Title*/}
         <span className='bg-highlight-dark-yellow'> {/*TitleWrapper*/}
           {title_cyr} ({title_lat}) - {artists.map(({ name_cyr }) => `${name_cyr}`).join(', ')}
@@ -130,22 +130,5 @@ const Song: React.FC<SongProps> = ({ id, release_date, title_cyr, title_lat, art
     </>
   );
 };
-
-/*
-const SiteContainer = styled.div`
-  @media (max-width: 1400px) {
-    margin-inline: 25%;
-  }
-  @media (max-width: 1200px) {
-    margin-inline: 20%;
-  }
-  @media (max-width: 900px) {
-    margin-inline: 10%;
-  }
-  @media (max-width: 700px) {
-    margin-inline: 1%;
-  }
-`;*/
-
 
 export default Song;
