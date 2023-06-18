@@ -24,9 +24,11 @@ const HomePage: React.FC = ({songData}: any) => {
     <>
       <main>
         <div className="flex flex-col justify-center items-center h-screen">
-          <span className={`${khyay.className} text-center text-white text-9xl lg:text-9xl md:text-8xl md:whitespace-nowrap`}>QAZAQ GENIUS</span>
+          <span className={`${khyay.className} text-center text-white text-8xl lg:text-9xl md:text-8xl md:whitespace-nowrap`}>
+            QAZAQ GENIUS
+          </span>
           <input
-            className="border-1 border-gray-300 bg-white h-10 px-2 rounded-md focus:outline-none w-2/6 text-center"
+            className="border-1 border-gray-300 bg-white h-10 px-2 rounded-md focus:outline-none text-center w-96 md:w-2/6 "
             type="search"
             name="search"
             placeholder="Type in a song name"
@@ -35,7 +37,7 @@ const HomePage: React.FC = ({songData}: any) => {
           /*placeholder searchresults*/
           songData.map((song: any) => {
             return (
-              <Link href={`/song/${song.id}`} key={song.title_lat} className="bg-gray-50 rounded-xl p-2 mt-2 w-2/6 hover:bg-gray-200">
+              <Link href={`/song/${song.id}`} key={song.title_lat} className="bg-gray-50 rounded-xl p-2 mt-2 hover:bg-gray-200 w-96 md:w-2/6 ">
                 <div key={song.title_lat} className="flex flex-row items-start flex-nowrap" >
                 <div className="relative h-16 w-16 self-center flex-shrink-0 mr-10"> {/*Size of the image is specified here*/}
                   <Image
