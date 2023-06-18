@@ -16,11 +16,17 @@ module.exports = {
         '12.5%': '12.5%',
         '5%':    '5%',
         '0.5%':  '0.5%',
+      },
+      fontSize: {
+        '75xl': ['5.25rem', '1'],
+        '77xl': ['5.5rem', '1'],
       }
     }
   },
   variants: {
     extend: {},
   },
-  plugins: [],
+  plugins: [
+    require('@tailwindcss/line-clamp'), //plugin to use line-clamp-2
+  ],
 }
