@@ -8,7 +8,7 @@ const SongInfo: React.FC<SongProps> = ({ title_cyr, release_date, title_lat, art
 
     return (
         <>
-        <div className='flex flex-row items-center flex-nowrap justify-between'>
+        <div className='flex flex-row items-center flex-nowrap justify-between py-4'>
             <h3 className='mt-0 flex-1'> {/*Title*/}
                 <span className='bg-highlight-dark-yellow'> {/*TitleWrapper*/}
                 {title_cyr} ({title_lat}) - {artists.map(({ name_cyr }) => name_cyr).join(', ')}

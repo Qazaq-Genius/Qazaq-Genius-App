@@ -64,14 +64,14 @@ const renderVerse = (lines: Record<string, Lyrics>, lang: string) => {
     const original_lang_line = eval(original_lang); // there should be a better way to do this, possibly with a switch statement
 
     return (
-      <div className='p-4 mb-4' key={line_nr}> {/*Container*/}
-        <p className='m-0 font-medium' key={`${line_nr}-${lang}`}>  {/*OriginalLangLine*/}
+      <div className='p-2 mb-2' key={line_nr}> {/*Container*/}
+        <p className='font-medium' key={`${line_nr}-${lang}`}>  {/*OriginalLangLine*/}
           {renderLine(original_lang_line, lang, words)}
         </p> {/*OriginalLangLine*/}
-        <p className='m-0' key={`${line_nr}-english`}> {/*Line*/}
+        <p key={`${line_nr}-english`}> {/*Line*/}
           {renderLine(english, lang, words)}
         </p> {/*Line*/}
-        <p className='m-0' key={`${line_nr}-russian`}> {/*Line*/}
+        <p key={`${line_nr}-russian`}> {/*Line*/}
           {renderLine(russian, lang, words)}
         </p> {/*Line*/}
       </div> /*Container*/
@@ -82,7 +82,7 @@ const renderVerse = (lines: Record<string, Lyrics>, lang: string) => {
 const renderLyrics = (lyrics: Record<string, Record<string, any>>) => {
   return Object.values(lyrics).flatMap((lines, index) => {
     return (
-      <div className="p-4 mb-4" key={index}> {/*VerseContainer*/}
+      <div className="py-2 pb-16" key={index}> {/*VerseContainer*/}
         {renderVerse(lines, "qazaq_cyr")}
       </div> /*VerseContainer*/
     );
