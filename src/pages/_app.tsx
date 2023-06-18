@@ -9,6 +9,7 @@ export default function App({ Component, pageProps }: AppProps) {
           <meta name="viewport" content="initial-scale=1.0, width=device-width" />
           <meta name="theme-color" content="#90B9D7" />
           <meta name="description" content="Qazaq Genius is a website that provides lyrics and translations of Kazakh songs." />
+          <meta name="googlebot" content="notranslate"/>
 
           <meta property="og:type" content="website"/>
           <meta property="og:url" content="https://https://qazaq-genius-app.vercel.app//"/>
