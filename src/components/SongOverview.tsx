@@ -1,6 +1,6 @@
-import Song from '../components/Song';
+import Song from './Song';
 import { Analytics } from '@vercel/analytics/react';
-import SongInfo from '../components/SongInfo';
+import SongInfo from './SongInfo';
 import { Roboto } from 'next/font/google';
 
 const roboto = Roboto({
@@ -9,11 +9,11 @@ const roboto = Roboto({
     display: 'swap',
   })
 
-interface HomePageProps {
+interface SongOverviewPageProps {
     songData: any;
 }
 
-const Home: React.FC<HomePageProps> = ({ songData }) => {
+const SongOverview: React.FC<SongOverviewPageProps> = ({ songData }) => {
     return <>
         <div className={`p-4 mt-0 text-lg font-extralight ${roboto.className} sm:mx-1% md:mx-10% lg:mx-25% xl:mx-30% bg-white`} key={`site`}> {/*SiteContainer*/}
             <SongInfo {...songData} />
@@ -24,4 +24,4 @@ const Home: React.FC<HomePageProps> = ({ songData }) => {
     </>;
 };
 
-export default Home;
+export default SongOverview;
