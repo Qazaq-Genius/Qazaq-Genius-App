@@ -48,7 +48,7 @@ const renderLine = (line: string, lang: string, words: Word[]) => {
 
     return (
       <span /*HighlightedWord*/
-        className={`cursor-pointer bg-${color} hover:bg-${color}`}
+        className={`cursor-pointer p-0.5 -m-0.5 bg-${color} hover:bg-${color}`}
         title={mouseover_string}
         color={color}
         key={word}

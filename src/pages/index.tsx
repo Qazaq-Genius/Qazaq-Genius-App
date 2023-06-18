@@ -28,7 +28,7 @@ const HomePage: React.FC = ({songData}: any) => {
             QAZAQ GENIUS
           </span>
           <input
-            className="border-1 border-gray-300 bg-white h-10 rounded-md focus:outline-none text-center w-11/12 md:w-3/6 lg:w-2/6 "
+            className="border-1 border-gray-300 bg-white h-10 rounded-md focus:outline-none text-center w-11/12 md:w-3/6 lg:w-3/6 xl:w-2/6"
             type="search"
             name="search"
             placeholder="Type in a song name"
@@ -37,7 +37,7 @@ const HomePage: React.FC = ({songData}: any) => {
           /*placeholder searchresults*/
           songData.map((song: any) => {
             return (
-              <Link href={`/song/${song.id}`} key={song.title_lat} className="bg-gray-50 rounded-xl mt-2 hover:bg-gray-200 p-2 w-11/12 md:w-3/6 lg:w-2/6 ">
+              <Link href={`/song/${song.id}`} key={song.title_lat} className="bg-gray-50 rounded-xl mt-2 hover:bg-gray-200 p-2 w-11/12 md:w-3/6 lg:w-3/6 xl:w-2/6">
                 <div key={song.title_lat} className="flex flex-row items-start flex-nowrap" >
                 <div className="relative h-16 w-16 self-center flex-shrink-0 mr-10"> {/*Size of the image is specified here*/}
                   <Image
@@ -52,8 +52,11 @@ const HomePage: React.FC = ({songData}: any) => {
                   />
                   </div>
                   <div className="flex text-lg flex-col items-start flex-nowrap text-left">
-                    <span className={``}>{song.title_lat}</span>
-                    <span className={``}>{song.artists[0].name_lat}</span>
+                    <span className="text-gray-400 line-clamp-2">{song.artists.map(({ name_cyr }: any) => name_cyr).join(', ')}</span>
+                    <span>{
+                      song.title_cyr === song.title_lat ? song.title_cyr : song.title_cyr + ' (' + song.title_lat + ')'
+                      }
+                    </span>
                   </div>
                 </div>
               </Link>
