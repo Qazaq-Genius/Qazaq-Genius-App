@@ -9,9 +9,18 @@ const khyay = localFont({ src: '../../styles/Khyay-Regular.ttf' })
 
 
 export async function getStaticProps() {
-  const { data: songData1 } = await axios.get(lyricsApi + '/song/50000001');
-  const { data: songData2 } = await axios.get(lyricsApi + '/song/50000002');
-  const songData = [songData1, songData2];
+  //the API gives an Array back looking like this [50000001,50000002,50000003]
+  const { data: songList } = await axios.get(lyricsApi + '/songs');
+
+  //we need to get the data for each song from /song/[id] and put it into an songData array
+  const songData = await Promise.all(
+    songList.map(async (songId: any) => {
+      const { data: song } = await axios.get(lyricsApi + `/song/${songId}`);
+      return song;
+    }
+    )
+  );
+
   return {
     props: {
       songData,
@@ -36,6 +45,7 @@ const HomePage: React.FC = ({songData}: any) => {
           {
           /*placeholder searchresults*/
           songData.map((song: any) => {
+            console.log(song);
             return (
               <Link href={`/song/${song.id}`} key={song.title_lat} className="bg-gray-50 rounded-xl mt-2 hover:bg-gray-200 p-2 w-11/12 md:w-3/6 lg:w-3/6 xl:w-2/6">
                 <div key={song.title_lat} className="flex flex-row items-start flex-nowrap" >
