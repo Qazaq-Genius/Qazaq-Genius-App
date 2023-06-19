@@ -15,7 +15,7 @@ export async function getStaticPaths() {
   return {
     paths,
     // generate a new page if the user visits a page that doesn't exist
-    fallback: true,
+    fallback: "blocking",
   };
 }
 
