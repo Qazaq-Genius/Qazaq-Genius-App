@@ -6,8 +6,6 @@ import Link from 'next/link'
 const lyricsApi = process.env.LYRICS_API_HOST;
 const khyay = localFont({ src: '../../styles/Khyay-Regular.ttf' })
 
-
-
 export async function getStaticProps() {
   //the API gives an Array back looking like this [50000001,50000002,50000003]
   const { data: songList } = await axios.get(lyricsApi + '/songs');
