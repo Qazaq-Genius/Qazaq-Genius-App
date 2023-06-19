@@ -7,9 +7,9 @@ const lyricsApi = process.env.LYRICS_API_HOST;
 
 export async function getStaticPaths() {
     const songs = (await axios.get(lyricsApi + '/songs')).data;
-    const paths = songs.map((song: any) => ({
+    const paths = songs.map((id: any) => ({
       params: {
-        id: song.id.toString(),
+        id: id.toString(),
       },
     }));
     return {
