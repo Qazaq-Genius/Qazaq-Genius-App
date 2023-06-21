@@ -35,7 +35,7 @@ const HomePage: React.FC = ({songData}: any) => {
             QAZAQ GENIUS
           </span>
           <input
-            className="border-1 border-gray-300 bg-white h-10 rounded-md focus:outline-none text-center w-11/12 md:w-3/6 lg:w-3/6 xl:w-2/6"
+            className="text-center w-11/12 md:w-3/6 lg:w-3/6 xl:w-2/6"
             type="search"
             name="search"
             placeholder="Type in a song name"

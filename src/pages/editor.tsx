@@ -13,14 +13,14 @@ const Editor: React.FC = () => {
 
 	const addVerse = () => {
 		setVerse([...verse, '']);
-	  };
+	};
 
-	
+
   return (
     <>
-      <main>
-        <div>
-            <div className="flex flex-col justify-center items-center">
+    <main>
+    	<div>
+        	<div className="flex flex-col justify-center items-center">
 				<form method="POST">
 					<Languages />
 					<br />
@@ -29,31 +29,34 @@ const Editor: React.FC = () => {
 					{/* Title */}
 					<div className="flex justify-between">
 						<label htmlFor="title">Title: </label>
-						<input type="text" name="title_cyr" className="rounded-md" />
-						<input type="text" name="title_lat" className="rounded-md ml-2" />
+						<input type="text" name="title_cyr"/>
+						<input type="text" name="title_lat" className="ml-2" />
 					</div>
 					<br />
-					
+
 					{/* Artists *********************************** start *** */}
 					<label htmlFor="artist-1-cyr">Artists 1: </label>
-						<input type="text" name="artist-1-cyr" className="rounded-md" />
-						<input type="text" name="artist-1-lat" className="rounded-md ml-2" />
-						<span className="ml-2" onClick={addArtist}>Plus</span>
+					<input type="text" name="artist-1-cyr"/>
+					<input type="text" name="artist-1-lat" className="ml-2" />
+					<span className="ml-2" onClick={addArtist}>Plus</span>
+
 					<br />
 					{artists.map((value, index) => (
 						<>
 						<br />
 						<label htmlFor={`artist-${index}-cyr`}>Artists {index + 2}:</label>
 						<input
-						className="rounded-md ml-2"
-						name={`artist-${index +2}-cyr`}
-						key={`${index +2 }-cyr`}
+							type="text"
+							className="ml-2"
+							name={`artist-${index +2}-cyr`}
+							key={`${index +2 }-cyr`}
 						/>
 
 						<input
-						className="rounded-md ml-2"
-						name={`artist-${index +2 }-lat`}
-						key={`${index +2}-lat`}
+							type="text"
+							className="ml-2"
+							name={`artist-${index +2 }-lat`}
+							key={`${index +2}-lat`}
 						/>
 						<br />
 						</>
@@ -64,8 +67,8 @@ const Editor: React.FC = () => {
 					{/* Album */}
 					<div className="flex justify-between">
 						<label htmlFor="album">Album: </label>
-						<input type="text" name="album-cyr" className="rounded-md" />
-						<input type="text" name="album-lat" className="rounded-md ml-2" />
+						<input type="text" name="album-cyr" />
+						<input type="text" name="album-lat" className="ml-2" />
 					</div>
 					<br />
 
@@ -78,11 +81,10 @@ const Editor: React.FC = () => {
 						</>
 					))}
 
-
 				</form>
             </div>
         </div>
-      </main>
+    </main>
     </>
   );
 };

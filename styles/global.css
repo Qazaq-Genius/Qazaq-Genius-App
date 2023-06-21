@@ -5,3 +5,7 @@
 body {
     background-color: #90B9D7;
 }
+
+input[type=text], input[type=search] {
+    @apply border-gray-300 bg-white h-10 rounded-md focus:outline-none px-2;
+}
