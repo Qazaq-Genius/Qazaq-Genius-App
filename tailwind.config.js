@@ -12,6 +12,8 @@ module.exports = {
         'highlight-blue':         '#aedef8',
         'highlight-yellow':       '#ffff4f',
         'highlight-dark-yellow':  '#ffff0077',
+
+        'background':             '#90B9D7',
       },
       margin: {
         '30%':   '30%',
