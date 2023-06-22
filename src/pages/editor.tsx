@@ -1,4 +1,5 @@
-import Languages from "../components/Input/Languages"
+import CheckboxItem from "../components/Input/CheckboxItem";
+import TextBox from "../components/Input/TextBox";
 import React, { useState } from 'react';
 
 
@@ -21,65 +22,73 @@ const Editor: React.FC = () => {
     <main>
     	<div>
         	<div className="flex flex-col justify-center items-center">
-				<form method="POST">
-					<Languages />
-					<br />
-					<br />
+				<form method="POST" className="md:w-3/6">
+					<fieldset className="flex flex-col md:flex-row border-2 rounded-md px-2 py-2 m-2 justify-center gap-2">
+						<legend className="bg-white text-black rounded-md px-2">Languages:</legend>
+						<CheckboxItem id="rus" text="Russian" />
+						<CheckboxItem id="eng" text="English" />
+						<CheckboxItem id="cyr" text="Qazaq Cyrillic" />
+						<CheckboxItem id="lat" text="Qazaq Latin" />
+					</fieldset>
 
 					{/* Title */}
-					<div className="flex justify-between">
-						<label htmlFor="title">Title: </label>
-						<input type="text" name="title_cyr"/>
-						<input type="text" name="title_lat" className="ml-2" />
-					</div>
-					<br />
+					<fieldset className="flex flex-col md:flex-row border-2 rounded-md px-2 py-2 m-2 justify-center gap-2 items-center">
+						<legend className="bg-white text-black rounded-md px-2">Title</legend>
+							<div className="flex justify-between m-2 gap-2">
+								<TextBox name="title_cyr" placeholder="қазақша"/>
+								<TextBox name="title_lat" placeholder="qazaqşa"/>
+							</div>
+					</fieldset>
 
-					{/* Artists *********************************** start *** */}
-					<label htmlFor="artist-1-cyr">Artists 1: </label>
-					<input type="text" name="artist-1-cyr"/>
-					<input type="text" name="artist-1-lat" className="ml-2" />
-					<span className="ml-2" onClick={addArtist}>Plus</span>
+						{/* Artists *********************************** start *** */}
+					<fieldset className="flex flex-col border-2 rounded-md px-2 py-2 m-2 justify-center gap-2 items-center">
+						<legend className="bg-white text-black rounded-md px-2">Artists</legend>
+						<div className="flex justify-between m-1 mt-2 mx-2 gap-2">
+							<TextBox name="artist-1-cyr" placeholder="қазақша"/>
+							<TextBox name="artist-1-lat" placeholder="qazaqşa"/>
+						</div>
 
-					<br />
-					{artists.map((value, index) => (
-						<>
-						<br />
-						<label htmlFor={`artist-${index}-cyr`}>Artists {index + 2}:</label>
-						<input
-							type="text"
-							className="ml-2"
-							name={`artist-${index +2}-cyr`}
-							key={`${index +2 }-cyr`}
-						/>
+						{artists.map((value, index) => (
+							<>
+							<div className="flex justify-between m-1 mx-2 gap-2">
+								<TextBox name={`artist-${index +2}-cyr`} placeholder="қазақша"/>
+								<TextBox name={`artist-${index +2}-lat`} placeholder="qazaqşa"/>
+							</div>
+							</>
+						))}
 
-						<input
-							type="text"
-							className="ml-2"
-							name={`artist-${index +2 }-lat`}
-							key={`${index +2}-lat`}
-						/>
-						<br />
-						</>
-					))}
+						<div className="cursor-pointer hover:after:content-['+'] duration-100" onClick={addArtist}>
+							Add another artist
+						</div>
+					</fieldset>
 					{/* Artists *********************************** end ***** */}
 
-					<br />
 					{/* Album */}
-					<div className="flex justify-between">
-						<label htmlFor="album">Album: </label>
-						<input type="text" name="album-cyr" />
-						<input type="text" name="album-lat" className="ml-2" />
-					</div>
-					<br />
+					<fieldset className="flex flex-col md:flex-row border-2 rounded-md px-2 py-2 m-2 justify-center gap-2">
+						<legend className="bg-white text-black rounded-md px-2">Album</legend>
+						<div className="flex justify-between m-2 gap-2">
+							<TextBox name="album-cyr" placeholder="қазақша"/>
+							<TextBox name="album-lat" placeholder="qazaqşa"/>
+						</div>
+					</fieldset>
 
 
 					{/* Verse */}
-					<span onClick={addVerse}>Add Verse</span>
-					{verse.map((value, index) => (
-						<>
-						<p>Das ist ein Verse</p>
-						</>
-					))}
+					<fieldset className="flex flex-col border-2 rounded-md px-2 py-2 m-2 justify-center gap-2">
+						<legend className="bg-white text-black rounded-md px-2">Lyrics</legend>
+						{verse.map((value, index) => (
+							<>
+							<fieldset className="flex flex-col md:flex-col rounded-md p-2 justify-center gap-2 bg-white bg-opacity-40">
+								<legend className="bg-white text-black rounded-md px-2">Line {index+1}</legend>
+								<TextBox name="line-cyr" placeholder="қазақша"/>
+								<TextBox name="line-lat" placeholder="qazaqşa"/>
+								<TextBox name="line-eng" placeholder="english"/>
+								<TextBox name="line-rus" placeholder="russian"/>
+							</fieldset>
+							</>
+						))}
+						<span onClick={addVerse}>Add Verse</span>
+					</fieldset>
 
 				</form>
             </div>
