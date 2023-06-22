@@ -22,8 +22,9 @@ const Editor: React.FC = () => {
     <main>
     	<div>
         	<div className="flex flex-col justify-center items-center">
+				<div className="text-2xl white my-4 mt-8 text-white font-medium">Add New Song</div>
 				<form method="POST" className="md:w-3/6">
-					<fieldset className="flex flex-col md:flex-row border-2 rounded-md px-2 py-2 m-2 justify-center gap-2">
+					<fieldset className="flex flex-col md:flex-row border-2 border-white border-opacity-50 rounded-md px-2 py-2 m-2 justify-center gap-2">
 						<legend className="bg-white text-black rounded-md px-2">Languages:</legend>
 						<CheckboxItem id="rus" text="Russian" />
 						<CheckboxItem id="eng" text="English" />
@@ -32,7 +33,7 @@ const Editor: React.FC = () => {
 					</fieldset>
 
 					{/* Title */}
-					<fieldset className="flex flex-col md:flex-row border-2 rounded-md px-2 py-2 m-2 justify-center gap-2 items-center">
+					<fieldset className="flex flex-col border-2 border-white border-opacity-50  rounded-md px-2 py-2 m-2 justify-center gap-2 items-center">
 						<legend className="bg-white text-black rounded-md px-2">Title</legend>
 							<div className="flex justify-between m-2 gap-2">
 								<TextBox name="title_cyr" placeholder="қазақша"/>
@@ -41,7 +42,7 @@ const Editor: React.FC = () => {
 					</fieldset>
 
 						{/* Artists *********************************** start *** */}
-					<fieldset className="flex flex-col border-2 rounded-md px-2 py-2 m-2 justify-center gap-2 items-center">
+					<fieldset className="flex flex-col border-2 border-white border-opacity-50  rounded-md px-2 py-2 m-2 justify-center gap-2 items-center">
 						<legend className="bg-white text-black rounded-md px-2">Artists</legend>
 						<div className="flex justify-between m-1 mt-2 mx-2 gap-2">
 							<TextBox name="artist-1-cyr" placeholder="қазақша"/>
@@ -64,7 +65,7 @@ const Editor: React.FC = () => {
 					{/* Artists *********************************** end ***** */}
 
 					{/* Album */}
-					<fieldset className="flex flex-col md:flex-row border-2 rounded-md px-2 py-2 m-2 justify-center gap-2">
+					<fieldset className="flex flex-col md:flex-row border-2 border-white border-opacity-50  rounded-md px-2 py-2 m-2 justify-center gap-2">
 						<legend className="bg-white text-black rounded-md px-2">Album</legend>
 						<div className="flex justify-between m-2 gap-2">
 							<TextBox name="album-cyr" placeholder="қазақша"/>
@@ -74,11 +75,11 @@ const Editor: React.FC = () => {
 
 
 					{/* Verse */}
-					<fieldset className="flex flex-col border-2 rounded-md px-2 py-2 m-2 justify-center gap-2">
+					<fieldset className="flex flex-col border-2 border-white border-opacity-50 rounded-md px-2 py-2 m-2 justify-center gap-2">
 						<legend className="bg-white text-black rounded-md px-2">Lyrics</legend>
 						{verse.map((value, index) => (
 							<>
-							<fieldset className="flex flex-col md:flex-col rounded-md p-2 justify-center gap-2 bg-white bg-opacity-40">
+							<fieldset className="flex flex-col rounded-md p-2 justify-center gap-2 bg-white bg-opacity-40">
 								<legend className="bg-white text-black rounded-md px-2">Line {index+1}</legend>
 								<TextBox name="line-cyr" placeholder="қазақша"/>
 								<TextBox name="line-lat" placeholder="qazaqşa"/>
