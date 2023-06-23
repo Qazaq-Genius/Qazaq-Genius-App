@@ -30,7 +30,7 @@ const Editor: React.FC = () => {
 				<form method="POST" className="w-full md:min-w-[66.66667%]">
 					<fieldset className="flex flex-col md:flex-row border-2 border-white border-opacity-50 rounded-md px-2 py-2 m-2 justify-center gap-2">
 						<legend className="bg-white text-black rounded-md px-2">Languages:</legend>
-						<CheckboxItem id="rus" text="Russian" />
+						<CheckboxItem id="rus" text="Russian"/>
 						<CheckboxItem id="eng" text="English" />
 						<CheckboxItem id="cyr" text="Qazaq Cyrillic" />
 						<CheckboxItem id="lat" text="Qazaq Latin" />
@@ -40,8 +40,8 @@ const Editor: React.FC = () => {
 					<fieldset className="flex flex-col border-2 border-white border-opacity-50 rounded-md px-2 py-2 m-2 justify-center gap-2 items-center">
 						<legend className="bg-white text-black rounded-md px-2">Title</legend>
 							<div className="flex justify-between m-2 gap-2">
-								<TextBox name="title_cyr" placeholder="қазақша" className="md:w-96 w-48"/>
-								<TextBox name="title_lat" placeholder="qazaqşa" className="md:w-96 w-48"/>
+								<TextBox name="title_cyr" placeholder="қазақша" className="md:w-96 w-full"/>
+								<TextBox name="title_lat" placeholder="qazaqşa" className="md:w-96 w-full"/>
 								<div className="w-0 md:w-4"></div>
 							</div>
 					</fieldset>
@@ -50,16 +50,16 @@ const Editor: React.FC = () => {
 					<fieldset className="flex flex-col border-2 border-white border-opacity-50  rounded-md px-2 py-2 m-2 justify-center gap-2 items-center">
 						<legend className="bg-white text-black rounded-md px-2">Artists</legend>
 						<div className="flex justify-between m-1 mt-2 mx-2 gap-2">
-							<TextBox name="artist-1-cyr" placeholder="қазақша" className="md:w-96 w-44"/>
-							<TextBox name="artist-1-lat" placeholder="qazaqşa" className="md:w-96 w-44"/>
+							<TextBox name="artist-1-cyr" placeholder="қазақша" className="md:w-96 w-full"/>
+							<TextBox name="artist-1-lat" placeholder="qazaqşa" className="md:w-96 w-full"/>
 							<div className="w-4"></div>
 						</div>
 
 						{artists.map((value, index) => (
 							<>
 							<div className="flex justify-between m-1 mx-2">
-								<TextBox name={`artist-${index}-cyr`} placeholder="қазақша" className="md:w-96 w-44 mr-2"/>
-								<TextBox name={`artist-${index}-lat`} placeholder="qazaqşa" className="md:w-96 w-44 mr-0 rounded-r-none"/>
+								<TextBox name={`artist-${index}-cyr`} placeholder="қазақша" className="md:w-96 w-full mr-2"/>
+								<TextBox name={`artist-${index}-lat`} placeholder="qazaqşa" className="md:w-96 w-full mr-0 rounded-r-none"/>
 								<button id={`button-${index}`} onClick={() => removeArtist(index)} className="bg-red-500 hover:bg-red-700 text-white font-bold ml-0 h-10 px-3 rounded-r-md w-2 cursor-pointer" type="button">-</button>
 							</div>
 							</>
@@ -75,8 +75,8 @@ const Editor: React.FC = () => {
 					<fieldset className="flex flex-col border-2 border-white border-opacity-50  rounded-md px-2 py-2 m-2 justify-center gap-2 items-center">
 						<legend className="bg-white text-black rounded-md px-2">Album</legend>
 						<div className="flex justify-between m-2 gap-2">
-							<TextBox name="album-cyr" placeholder="қазақша" className="md:w-96 w-48"/>
-							<TextBox name="album-lat" placeholder="qazaqşa" className="md:w-96 w-48"/>
+							<TextBox name="album-cyr" placeholder="қазақша" className="md:w-96 w-full"/>
+							<TextBox name="album-lat" placeholder="qazaqşa" className="md:w-96 w-full"/>
 							<div className="w-0 md:w-4"></div>
 						</div>
 					</fieldset>
