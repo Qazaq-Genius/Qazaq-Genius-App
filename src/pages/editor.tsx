@@ -35,7 +35,7 @@ const Editor: React.FC = () => {
 				<div className="text-2xl white my-4 mt-8 text-white font-medium">Add New Song</div>
 				<form method="POST" className="w-full md:min-w-[66.66667%]">
 					<fieldset className="flex flex-col md:flex-row border-2 border-white border-opacity-50 rounded-md px-2 py-2 m-2 justify-center gap-2">
-						<legend className="bg-white text-black rounded-md px-2">Languages:</legend>
+						<legend className="bg-white text-black rounded-md px-2">Languages</legend>
 						<CheckboxItem id="rus" text="Russian"/>
 						<CheckboxItem id="eng" text="English" />
 						<CheckboxItem id="cyr" text="Qazaq Cyrillic" />
@@ -58,7 +58,7 @@ const Editor: React.FC = () => {
 						<div className="flex justify-between m-1 mt-2 mx-2 gap-2">
 							<TextBox name="artist-1-cyr" placeholder="қазақша" className="md:w-96 w-full"/>
 							<TextBox name="artist-1-lat" placeholder="qazaqşa" className="md:w-96 w-full"/>
-							<div className="w-4"></div>
+							<div className="w-0 md:w-4"></div>
 						</div>
 
 						{artists.map((value, index) => (
@@ -112,7 +112,7 @@ const Editor: React.FC = () => {
 						<span onClick={addVerse}>Add Verse</span>
 					</fieldset>
 					<div className="flex justify-end mb-12 mt-2 my-2">
-						<button className="bg-white bg-opacity-75 hover:bg-opacity-95 border-opacity-50 rounded-md p-2 border-b-4 border-r-4 border-blue-900">Submit</button>
+						<button className="bg-white bg-opacity-75 hover:bg-opacity-95 border-opacity-50 rounded-md p-2 mx-2">Submit</button>
 					</div>
 				</form>
             </div>
