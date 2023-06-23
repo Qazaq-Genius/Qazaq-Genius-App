@@ -6,6 +6,7 @@ import React, { useState } from 'react';
 
 const Editor: React.FC = () => {
 
+	const [languages,   setLanguags]   = useState<string[]>([]);
 	const [artists, setartists] = useState<string[]>([]);
 	const [verse,   setVerse]   = useState<string[]>([]);
 	const [album,   setAlbum]   = useState<boolean>(false);
@@ -22,6 +23,16 @@ const Editor: React.FC = () => {
 		setartists([...artists.slice(0, index), ...artists.slice(index+1)]);
 	};
 
+	const languageHandler = (language: string) => {
+		if (languages.includes(language)) {
+			const updatedLanguage = languages.filter(lang => lang !== language);
+			setLanguags(updatedLanguage);
+		  } else {
+			const updatedLanguage = [...languages, language];
+			setLanguags(updatedLanguage);
+		  }
+	}
+
 	const addVerse = () => {
 		setVerse([...verse, '']);
 	};
@@ -34,16 +45,17 @@ const Editor: React.FC = () => {
         	<div className="flex flex-col justify-center items-center">
 				<div className="text-2xl white my-4 mt-8 text-white font-medium">Add New Song</div>
 				<form method="POST" className="w-full md:min-w-[66.66667%]">
-					<fieldset className="flex flex-col md:flex-row border-2 border-white border-opacity-50 rounded-md px-2 py-2 m-2 justify-center gap-2">
+					<fieldset className="flex flex-col md:flex-row border-2 border-white border-opacity-50   bg-pink-300 lg:w-1/2 lg:m-auto rounded-md px-2 py-2 m-2 justify-center gap-2">
 						<legend className="bg-white text-black rounded-md px-2">Languages</legend>
-						<CheckboxItem id="rus" text="Russian"/>
-						<CheckboxItem id="eng" text="English" />
-						<CheckboxItem id="cyr" text="Qazaq Cyrillic" />
-						<CheckboxItem id="lat" text="Qazaq Latin" />
+						<CheckboxItem clickHandler={languageHandler} id="rus"  text="Russian"/>
+						<CheckboxItem clickHandler={languageHandler} id="eng" text="English" />
+						<CheckboxItem clickHandler={languageHandler} id="cyr" text="Qazaq Cyrillic" />
+						<CheckboxItem clickHandler={languageHandler} id="lat" text="Qazaq Latin" />
 					</fieldset>
+					<br />
 
 					{/* Title */}
-					<fieldset className="flex flex-col border-2 border-white border-opacity-50 rounded-md px-2 py-2 m-2 justify-center gap-2 items-center">
+					<fieldset className="flex flex-col  border-2 border-white border-opacity-50 bg-pink-300  lg:w-1/2 lg:m-auto rounded-md px-2 py-2 m-2 justify-center gap-2 items-center">
 						<legend className="bg-white text-black rounded-md px-2">Title</legend>
 							<div className="flex justify-between m-2 gap-2">
 								<TextBox name="title_cyr" placeholder="қазақша" className="md:w-96 w-full"/>
@@ -51,9 +63,10 @@ const Editor: React.FC = () => {
 								<div className="w-0 md:w-4"></div>
 							</div>
 					</fieldset>
+							<br />
 
 						{/* Artists *********************************** start *** */}
-					<fieldset className="flex flex-col border-2 border-white border-opacity-50  rounded-md px-2 py-2 m-2 justify-center gap-2 items-center">
+					<fieldset className="flex flex-col border-2 border-white border-opacity-50 lg:w-1/2 lg:m-auto bg-pink-300 rounded-md px-2 py-2 m-2 justify-center gap-2 items-center">
 						<legend className="bg-white text-black rounded-md px-2">Artists</legend>
 						<div className="flex justify-between m-1 mt-2 mx-2 gap-2">
 							<TextBox name="artist-1-cyr" placeholder="қазақша" className="md:w-96 w-full"/>
@@ -75,10 +88,12 @@ const Editor: React.FC = () => {
 							Add another artist
 						</div>
 					</fieldset>
+					<br />
+
 					{/* Artists *********************************** end ***** */}
 
 					{/* Album */}
-					<fieldset className="flex flex-col border-2 border-white border-opacity-50  rounded-md px-2 py-2 m-2 justify-center gap-2 items-center">
+					<fieldset className="flex flex-col border-2 border-white border-opacity-50 lg:w-1/2 lg:m-auto bg-pink-300 rounded-md px-2 py-2 m-2 justify-center gap-2 items-center">
 						<legend className="bg-white text-black rounded-md px-2">Album</legend>
 						<div className="flex justify-between m-2 gap-2 w-full md:w-auto" >
 							<RadioButton id="album"    text="Album" className="w-full md:w-96"    checked={album === true} onChange={setAlbumState}/>
@@ -93,19 +108,29 @@ const Editor: React.FC = () => {
 						</div>
 						}
 					</fieldset>
+					<br />
+
 
 
 					{/* Verse */}
-					<fieldset className="flex flex-col border-2 border-white border-opacity-50 rounded-md px-2 py-2 m-2 justify-center gap-2">
+					<fieldset className="flex flex-col border-2 border-white border-opacity-50 lg:w-1/2 lg:m-auto bg-pink-300 rounded-md px-2 py-2 m-2 justify-center gap-2">
 						<legend className="bg-white text-black rounded-md px-2">Lyrics</legend>
 						{verse.map((value, index) => (
 							<>
 							<fieldset className="flex flex-col rounded-md p-2 justify-center gap-2 bg-white bg-opacity-40">
 								<legend className="bg-white text-black rounded-md px-2">Line {index+1}</legend>
+								{languages.includes('cyr') && (
 								<TextBox name="line-cyr" placeholder="қазақша" className="md:min-w-[50rem]"/>
+								)}
+								{languages.includes('lat') && (
 								<TextBox name="line-lat" placeholder="qazaqşa"/>
+								)}
+								{languages.includes('eng') && (
 								<TextBox name="line-eng" placeholder="english"/>
+								)}
+								{languages.includes('rus') && (
 								<TextBox name="line-rus" placeholder="russian"/>
+								)}
 							</fieldset>
 							</>
 						))}
