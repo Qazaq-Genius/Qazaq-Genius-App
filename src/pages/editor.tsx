@@ -1,4 +1,5 @@
 import CheckboxItem from "../components/Input/CheckboxItem";
+import RadioButton from "../components/Input/RadioButton";
 import TextBox from "../components/Input/TextBox";
 import React, { useState } from 'react';
 
@@ -7,6 +8,11 @@ const Editor: React.FC = () => {
 
 	const [artists, setartists] = useState<string[]>([]);
 	const [verse,   setVerse]   = useState<string[]>([]);
+	const [album,   setAlbum]   = useState<boolean>(false);
+
+	const setAlbumState = () => {
+		setAlbum(!album);
+	}
 
 	const addArtist = () => {
 	  	setartists([...artists, '']);
@@ -74,11 +80,18 @@ const Editor: React.FC = () => {
 					{/* Album */}
 					<fieldset className="flex flex-col border-2 border-white border-opacity-50  rounded-md px-2 py-2 m-2 justify-center gap-2 items-center">
 						<legend className="bg-white text-black rounded-md px-2">Album</legend>
+						<div className="flex justify-between m-2 gap-2 w-full md:w-auto" >
+							<RadioButton id="album"    text="Album" className="w-full md:w-96"    checked={album === true} onChange={setAlbumState}/>
+							<RadioButton id="no-album" text="No Album" className="w-full md:w-96" checked={album === false} onChange={setAlbumState}/>
+							<div className="w-0 md:w-4"></div>
+						</div>
+						{album &&
 						<div className="flex justify-between m-2 gap-2">
 							<TextBox name="album-cyr" placeholder="қазақша" className="md:w-96 w-full"/>
 							<TextBox name="album-lat" placeholder="qazaqşa" className="md:w-96 w-full"/>
 							<div className="w-0 md:w-4"></div>
 						</div>
+						}
 					</fieldset>
 
 
