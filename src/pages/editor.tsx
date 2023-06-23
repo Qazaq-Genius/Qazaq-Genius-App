@@ -27,7 +27,7 @@ const Editor: React.FC = () => {
     	<div>
         	<div className="flex flex-col justify-center items-center">
 				<div className="text-2xl white my-4 mt-8 text-white font-medium">Add New Song</div>
-				<form method="POST" className="w-11/12 md:min-w-[66.66667%]">
+				<form method="POST" className="w-full md:min-w-[66.66667%] md:w-3/6">
 					<fieldset className="flex flex-col md:flex-row border-2 border-white border-opacity-50 rounded-md px-2 py-2 m-2 justify-center gap-2">
 						<legend className="bg-white text-black rounded-md px-2">Languages:</legend>
 						<CheckboxItem id="rus" text="Russian" />
@@ -40,8 +40,9 @@ const Editor: React.FC = () => {
 					<fieldset className="flex flex-col border-2 border-white border-opacity-50 rounded-md px-2 py-2 m-2 justify-center gap-2 items-center">
 						<legend className="bg-white text-black rounded-md px-2">Title</legend>
 							<div className="flex justify-between m-2 gap-2">
-								<TextBox name="title_cyr" placeholder="қазақша" className="md:w-96 w-44"/>
-								<TextBox name="title_lat" placeholder="qazaqşa" className="md:w-96 w-44"/>
+								<TextBox name="title_cyr" placeholder="қазақша" className="md:w-96 w-48"/>
+								<TextBox name="title_lat" placeholder="qazaqşa" className="md:w-96 w-48"/>
+								<div className="w-0 md:w-4"></div>
 							</div>
 					</fieldset>
 
@@ -74,8 +75,9 @@ const Editor: React.FC = () => {
 					<fieldset className="flex flex-col border-2 border-white border-opacity-50  rounded-md px-2 py-2 m-2 justify-center gap-2 items-center">
 						<legend className="bg-white text-black rounded-md px-2">Album</legend>
 						<div className="flex justify-between m-2 gap-2">
-							<TextBox name="album-cyr" placeholder="қазақша" className="md:w-96 w-44"/>
-							<TextBox name="album-lat" placeholder="qazaqşa" className="md:w-96 w-44"/>
+							<TextBox name="album-cyr" placeholder="қазақша" className="md:w-96 w-48"/>
+							<TextBox name="album-lat" placeholder="qazaqşa" className="md:w-96 w-48"/>
+							<div className="w-0 md:w-4"></div>
 						</div>
 					</fieldset>
 
@@ -87,7 +89,7 @@ const Editor: React.FC = () => {
 							<>
 							<fieldset className="flex flex-col rounded-md p-2 justify-center gap-2 bg-white bg-opacity-40">
 								<legend className="bg-white text-black rounded-md px-2">Line {index+1}</legend>
-								<TextBox name="line-cyr" placeholder="қазақша"/>
+								<TextBox name="line-cyr" placeholder="қазақша" className="md:min-w-[50rem]"/>
 								<TextBox name="line-lat" placeholder="qazaqşa"/>
 								<TextBox name="line-eng" placeholder="english"/>
 								<TextBox name="line-rus" placeholder="russian"/>
@@ -96,7 +98,9 @@ const Editor: React.FC = () => {
 						))}
 						<span onClick={addVerse}>Add Verse</span>
 					</fieldset>
-
+					<div className="flex justify-end mb-12 mt-2 mx-1">
+						<button className="bg-white bg-opacity-75 hover:bg-opacity-95 border-opacity-50 rounded-md p-2 border-b-4 border-r-4 border-blue-900">Submit</button>
+					</div>
 				</form>
             </div>
         </div>
