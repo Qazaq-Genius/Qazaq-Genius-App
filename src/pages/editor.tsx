@@ -27,7 +27,7 @@ const Editor: React.FC = () => {
     	<div>
         	<div className="flex flex-col justify-center items-center">
 				<div className="text-2xl white my-4 mt-8 text-white font-medium">Add New Song</div>
-				<form method="POST" className="w-full md:min-w-[66.66667%] md:w-3/6">
+				<form method="POST" className="w-full md:min-w-[66.66667%]">
 					<fieldset className="flex flex-col md:flex-row border-2 border-white border-opacity-50 rounded-md px-2 py-2 m-2 justify-center gap-2">
 						<legend className="bg-white text-black rounded-md px-2">Languages:</legend>
 						<CheckboxItem id="rus" text="Russian" />
@@ -98,7 +98,7 @@ const Editor: React.FC = () => {
 						))}
 						<span onClick={addVerse}>Add Verse</span>
 					</fieldset>
-					<div className="flex justify-end mb-12 mt-2 mx-1">
+					<div className="flex justify-end mb-12 mt-2 my-2">
 						<button className="bg-white bg-opacity-75 hover:bg-opacity-95 border-opacity-50 rounded-md p-2 border-b-4 border-r-4 border-blue-900">Submit</button>
 					</div>
 				</form>
