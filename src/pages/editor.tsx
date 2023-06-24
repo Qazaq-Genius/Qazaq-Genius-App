@@ -6,8 +6,8 @@ import React, { useState } from 'react';
 
 const Editor: React.FC = () => {
 
-	const [languages,   setLanguags]   = useState<string[]>([]);
-	const [artists, setartists] = useState<string[]>([]);
+	const [languages,   setLanguages]   = useState<string[]>([]);
+	const [artists, setArtists] = useState<string[]>([]);
 	const [verse,   setVerse]   = useState<string[]>([]);
 	const [album,   setAlbum]   = useState<boolean>(false);
 
@@ -16,20 +16,20 @@ const Editor: React.FC = () => {
 	}
 
 	const addArtist = () => {
-	  	setartists([...artists, '']);
+	  	setArtists([...artists, '']);
 	};
 
 	const removeArtist = (index: number) => {
-		setartists([...artists.slice(0, index), ...artists.slice(index+1)]);
+		setArtists([...artists.slice(0, index), ...artists.slice(index+1)]);
 	};
 
 	const languageHandler = (language: string) => {
 		if (languages.includes(language)) {
 			const updatedLanguage = languages.filter(lang => lang !== language);
-			setLanguags(updatedLanguage);
+			setLanguages(updatedLanguage);
 		  } else {
 			const updatedLanguage = [...languages, language];
-			setLanguags(updatedLanguage);
+			setLanguages(updatedLanguage);
 		  }
 	}
 
@@ -58,8 +58,8 @@ const Editor: React.FC = () => {
 					<fieldset className="flex flex-col  border-2 border-white border-opacity-50 bg-pink-300  lg:w-1/2 lg:m-auto rounded-md px-2 py-2 m-2 justify-center gap-2 items-center">
 						<legend className="bg-white text-black rounded-md px-2">Title</legend>
 							<div className="flex justify-between m-2 gap-2">
-								<TextBox name="title_cyr" placeholder="қазақша" className="md:w-96 w-full"/>
-								<TextBox name="title_lat" placeholder="qazaqşa" className="md:w-96 w-full"/>
+								<TextBox name="title_cyr" placeholder="қазақша" className="md:w-96 lg:w-80 w-full"/>
+								<TextBox name="title_lat" placeholder="qazaqşa" className="md:w-96 lg:w-80 w-full"/>
 								<div className="w-0 md:w-4"></div>
 							</div>
 					</fieldset>
@@ -69,16 +69,16 @@ const Editor: React.FC = () => {
 					<fieldset className="flex flex-col border-2 border-white border-opacity-50 lg:w-1/2 lg:m-auto bg-pink-300 rounded-md px-2 py-2 m-2 justify-center gap-2 items-center">
 						<legend className="bg-white text-black rounded-md px-2">Artists</legend>
 						<div className="flex justify-between m-1 mt-2 mx-2 gap-2">
-							<TextBox name="artist-1-cyr" placeholder="қазақша" className="md:w-96 w-full"/>
-							<TextBox name="artist-1-lat" placeholder="qazaqşa" className="md:w-96 w-full"/>
+							<TextBox name="artist-1-cyr" placeholder="қазақша" className="md:w-96 lg:w-80 w-full"/>
+							<TextBox name="artist-1-lat" placeholder="qazaqşa" className="md:w-96 lg:w-80 w-full"/>
 							<div className="w-0 md:w-4"></div>
 						</div>
 
 						{artists.map((value, index) => (
 							<>
 							<div className="flex justify-between m-1 mx-2">
-								<TextBox name={`artist-${index}-cyr`} placeholder="қазақша" className="md:w-96 w-full mr-2"/>
-								<TextBox name={`artist-${index}-lat`} placeholder="qazaqşa" className="md:w-96 w-full mr-0 rounded-r-none"/>
+								<TextBox name={`artist-${index}-cyr`} placeholder="қазақша" className="md:w-96 lg:w-80 w-full mr-2"/>
+								<TextBox name={`artist-${index}-lat`} placeholder="qazaqşa" className="md:w-96 lg:w-80 w-full mr-0 rounded-r-none"/>
 								<button id={`button-${index}`} onClick={() => removeArtist(index)} className="bg-red-500 hover:bg-red-700 text-white font-bold ml-0 h-10 px-3 rounded-r-md w-2 cursor-pointer" type="button">-</button>
 							</div>
 							</>
@@ -96,14 +96,14 @@ const Editor: React.FC = () => {
 					<fieldset className="flex flex-col border-2 border-white border-opacity-50 lg:w-1/2 lg:m-auto bg-pink-300 rounded-md px-2 py-2 m-2 justify-center gap-2 items-center">
 						<legend className="bg-white text-black rounded-md px-2">Album</legend>
 						<div className="flex justify-between m-2 gap-2 w-full md:w-auto" >
-							<RadioButton id="album"    text="Album" className="w-full md:w-96"    checked={album === true} onChange={setAlbumState}/>
-							<RadioButton id="no-album" text="No Album" className="w-full md:w-96" checked={album === false} onChange={setAlbumState}/>
+							<RadioButton id="album"    text="Album" className="w-full lg:w-80 md:w-96"    checked={album === true} onChange={setAlbumState}/>
+							<RadioButton id="no-album" text="No Album" className="w-full lg:w-80 md:w-96" checked={album === false} onChange={setAlbumState}/>
 							<div className="w-0 md:w-4"></div>
 						</div>
 						{album &&
 						<div className="flex justify-between m-2 gap-2">
-							<TextBox name="album-cyr" placeholder="қазақша" className="md:w-96 w-full"/>
-							<TextBox name="album-lat" placeholder="qazaqşa" className="md:w-96 w-full"/>
+							<TextBox name="album-cyr" placeholder="қазақша" className="md:w-96 lg:w-80 w-full"/>
+							<TextBox name="album-lat" placeholder="qazaqşa" className="md:w-96 lg:w-80 w-full"/>
 							<div className="w-0 md:w-4"></div>
 						</div>
 						}
