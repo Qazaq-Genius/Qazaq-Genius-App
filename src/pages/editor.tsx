@@ -1,4 +1,4 @@
-import LanguageCheckboxItem from "../components/Input/LanguageCheckboxItem";
+import CheckboxItem from "../components/Input/CheckboxItem";
 import RadioButton from "../components/Input/RadioButton";
 import TextBox from "../components/Input/TextBox";
 import React, { useState } from 'react';
@@ -47,10 +47,10 @@ const Editor: React.FC = () => {
 				<form method="POST" className="w-full md:min-w-[66.66667%]">
 					<fieldset className="flex flex-col md:flex-row border-2 border-white border-opacity-50   bg-pink-300 lg:w-1/2 lg:m-auto rounded-md px-2 py-2 m-2 justify-center gap-2">
 						<legend className="bg-white text-black rounded-md px-2">Languages</legend>
-						<LanguageCheckboxItem clickHandler={languageHandler} id="rus"  text="Russian"/>
-						<LanguageCheckboxItem clickHandler={languageHandler} id="eng" text="English" />
-						<LanguageCheckboxItem clickHandler={languageHandler} id="cyr" text="Qazaq Cyrillic" />
-						<LanguageCheckboxItem clickHandler={languageHandler} id="lat" text="Qazaq Latin" />
+						<CheckboxItem clickHandler={languageHandler} id="rus"  text="Russian"/>
+						<CheckboxItem clickHandler={languageHandler} id="eng" text="English" />
+						<CheckboxItem clickHandler={languageHandler} id="cyr" text="Qazaq Cyrillic" />
+						<CheckboxItem clickHandler={languageHandler} id="lat" text="Qazaq Latin" />
 					</fieldset>
 					<br />
 
