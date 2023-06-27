@@ -3,17 +3,25 @@ import RadioButton from "../components/Input/RadioButton";
 import TextBox from "../components/Input/TextBox";
 import ArtistTextBox from "../components/Input/ArtistTextBox";
 import React, { useState } from 'react';
+import VerseTextBox from "@/components/Input/VerseTextBox";
 
 interface Artist{
 	lat: string,
 	cyr: string
 }
 
+interface Verse{
+	lat:string,
+	cyr: string,
+	rus: string,
+	eng: string
+}
+
 const Editor: React.FC = () => {
 
 	const [languages,   setLanguages]   = useState<string[]>([]);
 	const [artists, setArtists] = useState<Artist[]>([]);
-	const [verse,   setVerse]   = useState<string[]>([]);
+	const [verse,   setVerse]   = useState<Verse[]>([]);
 	const [album,   setAlbum]   = useState<boolean>(false);
 
 	const setAlbumState = () => {
@@ -21,15 +29,13 @@ const Editor: React.FC = () => {
 	}
 
 	const addArtist = () => {
-		const newArtist = {
-			lat: "",
-			cyr: ""
-		}
-	  	setArtists([...artists, newArtist]);
+		// add new Artist
+	  	setArtists([...artists, {lat: "",	cyr: ""}]);
 	};
 
-	const removeArtist = (index: number) => {
-		setArtists([...artists.slice(0, index), ...artists.slice(index+1)]);
+	const addVerse = () => {
+		// add new verse
+		setVerse([...verse, {lat:'',cyr:'',rus:'',eng:''}])
 	};
 
 	const setArtistValue = (inputValue: string, index:number, language: keyof Artist) => {
@@ -41,6 +47,19 @@ const Editor: React.FC = () => {
 		})
 	}
 
+	const setVerseValue = (inputValue: string, index:number, language: keyof Verse) => {
+
+		setVerse((prev) => {
+			var updateVerse = [...prev]
+			updateVerse[index][language] = inputValue
+			return updateVerse
+		})
+	}
+
+
+	const removeArtist = (index: number) => {
+		setArtists([...artists.slice(0, index), ...artists.slice(index+1)]);
+	};
 
 	const languageHandler = (language: string) => {
 		if (languages.includes(language)) {
@@ -51,10 +70,6 @@ const Editor: React.FC = () => {
 			setLanguages(updatedLanguage);
 		  }
 	}
-
-	const addVerse = () => {
-		setVerse([...verse, '']);
-	};
 
 
   return (
@@ -139,16 +154,16 @@ const Editor: React.FC = () => {
 							<fieldset className="flex flex-col rounded-md p-2 justify-center gap-2 bg-white bg-opacity-40">
 								<legend className="bg-white text-black rounded-md px-2">Line {index+1}</legend>
 								{languages.includes('cyr') && (
-								<TextBox name="line-cyr" placeholder="қазақша" className="md:min-w-[50rem]"/>
+								<VerseTextBox changeHandler={setVerseValue} language='cyr' index={index} value={value.cyr} name="line-cyr" placeholder="қазақша" className="md:min-w-[50rem]"/>
 								)}
 								{languages.includes('lat') && (
-								<TextBox name="line-lat" placeholder="qazaqşa"/>
+								<VerseTextBox changeHandler={setVerseValue} language='lat' index={index} value={value.lat} name="line-lat" placeholder="qazaqşa"/>
 								)}
 								{languages.includes('eng') && (
-								<TextBox name="line-eng" placeholder="english"/>
+								<VerseTextBox changeHandler={setVerseValue} language='eng' index={index} value={value.eng} name="line-eng" placeholder="english"/>
 								)}
 								{languages.includes('rus') && (
-								<TextBox name="line-rus" placeholder="russian"/>
+								<VerseTextBox changeHandler={setVerseValue} language='rus' index={index} value={value.rus} name="line-rus" placeholder="russian"/>
 								)}
 							</fieldset>
 							</>
