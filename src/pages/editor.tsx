@@ -1,13 +1,18 @@
 import CheckboxItem from "../components/Input/CheckboxItem";
 import RadioButton from "../components/Input/RadioButton";
 import TextBox from "../components/Input/TextBox";
+import ArtistTextBox from "../components/Input/ArtistTextBox";
 import React, { useState } from 'react';
 
+interface Artist{
+	lat: string,
+	cyr: string
+}
 
 const Editor: React.FC = () => {
 
 	const [languages,   setLanguages]   = useState<string[]>([]);
-	const [artists, setArtists] = useState<string[]>([]);
+	const [artists, setArtists] = useState<Artist[]>([]);
 	const [verse,   setVerse]   = useState<string[]>([]);
 	const [album,   setAlbum]   = useState<boolean>(false);
 
@@ -16,12 +21,26 @@ const Editor: React.FC = () => {
 	}
 
 	const addArtist = () => {
-	  	setArtists([...artists, '']);
+		const newArtist = {
+			lat: "",
+			cyr: ""
+		}
+	  	setArtists([...artists, newArtist]);
 	};
 
 	const removeArtist = (index: number) => {
 		setArtists([...artists.slice(0, index), ...artists.slice(index+1)]);
 	};
+
+	const setArtistValue = (inputValue: string, index:number, language:string) => {
+
+		setArtists((prev) => {
+			var updateArtists = [...prev]
+			updateArtists[index][language] = inputValue
+			return updateArtists
+		})
+	}
+
 
 	const languageHandler = (language: string) => {
 		if (languages.includes(language)) {
@@ -77,8 +96,8 @@ const Editor: React.FC = () => {
 						{artists.map((value, index) => (
 							<>
 							<div className="flex justify-between m-1 mx-2">
-								<TextBox name={`artist-${index}-cyr`} placeholder="қазақша" className="md:w-96 lg:w-80 w-full mr-2"/>
-								<TextBox name={`artist-${index}-lat`} placeholder="qazaqşa" className="md:w-96 lg:w-80 w-full mr-0 rounded-r-none"/>
+								<ArtistTextBox changeHandler={setArtistValue} index={index} language="cyr" value={value.cyr} name={`artist-${index}-cyr`} placeholder="қазақша" className="md:w-96 lg:w-80 w-full mr-2"/>
+								<ArtistTextBox changeHandler={setArtistValue} index={index} language="lat" value={value.lat} name={`artist-${index}-lat`} placeholder="qazaqşa" className="md:w-96 lg:w-80 w-full mr-0 rounded-r-none"/>
 								<button id={`button-${index}`} onClick={() => removeArtist(index)} className="bg-red-500 hover:bg-red-700 text-white font-bold ml-0 h-10 px-3 rounded-r-md w-2 cursor-pointer" type="button">-</button>
 							</div>
 							</>
