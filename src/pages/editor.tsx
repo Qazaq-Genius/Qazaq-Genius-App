@@ -32,7 +32,7 @@ const Editor: React.FC = () => {
 		setArtists([...artists.slice(0, index), ...artists.slice(index+1)]);
 	};
 
-	const setArtistValue = (inputValue: string, index:number, language:string) => {
+	const setArtistValue = (inputValue: string, index:number, language: keyof Artist) => {
 
 		setArtists((prev) => {
 			var updateArtists = [...prev]
