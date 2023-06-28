@@ -71,7 +71,7 @@ const Editor: React.FC = () => {
 		  }
 	}
 
-	const pastedVerse = (verseText: string, verseIndex: keyof Verse) => {
+	const pastedVerse = (verseText: string, verseIndex: number) => {
 		const splittedText: string[] = verseText.trim().split('\n');
 		const sortedLang: string[] = ['cyr', 'eng', 'rus'];
 
@@ -80,7 +80,7 @@ const Editor: React.FC = () => {
 		  let sortedLangIndex: number = 0;
 		  splittedText.forEach((line, index) => {
 			sortedLangIndex = index % sortedLang.length;
-			const currentIndex = Math.floor(index / sortedLang.length);
+			const currentIndex = Math.floor(index / sortedLang.length)+verseIndex;
 
 			if (updatedVerse[currentIndex] === undefined) {
 			  updatedVerse[currentIndex] = {};
