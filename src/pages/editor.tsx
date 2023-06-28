@@ -72,7 +72,7 @@ const Editor: React.FC = () => {
 	}
 
 	const pastedVerse = (verseText: string, verseIndex: number) => {
-		const splittedText: string[] = verseText.trim().split('\n');
+		const splittedText: string[] = verseText.trim().split('\n').filter(text => text !== "");
 		const sortedLang: string[] = ['cyr', 'eng', 'rus'];
 
 		setVerse((prev) => {

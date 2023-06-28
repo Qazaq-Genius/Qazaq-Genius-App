@@ -4,7 +4,7 @@ interface TextBoxProps {
     name: string;
     placeholder?: string;
     className?: string;
-	value: string,
+	value?: string,
 	index: number,
 	language: string,
 	changeHandler: any,
