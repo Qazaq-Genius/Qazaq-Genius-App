@@ -71,26 +71,28 @@ const Editor: React.FC = () => {
 		  }
 	}
 
-	const pastedVerse = (VerseText: string, verseIndex: keyof Verse) => {
-		let splittedText = VerseText.trim().split('\n')
-		let sortedLang = ['cyr','eng','rus']
+	const pastedVerse = (verseText: string, verseIndex: keyof Verse) => {
+		const splittedText: string[] = verseText.trim().split('\n');
+		const sortedLang: string[] = ['cyr', 'eng', 'rus'];
 
-		
 		setVerse((prev) => {
-			var updateVerse = [...prev]
+		  const updatedVerse: Verse[] = [...prev];
+		  let sortedLangIndex: number = 0;
+		  splittedText.forEach((line, index) => {
+			sortedLangIndex = index % sortedLang.length;
+			const currentIndex = Math.floor(index / sortedLang.length);
 
-			
+			if (updatedVerse[currentIndex] === undefined) {
+			  updatedVerse[currentIndex] = {};
+			}
 
-			sortedLang.forEach((lang, index) => {
-				updateVerse[verseIndex][lang] = splittedText[index]
-			})
+			const currentLang = sortedLang[sortedLangIndex] as keyof Verse;
+			updatedVerse[currentIndex][currentLang] = line;
+		  });
 
-			return updateVerse
-		})
-		
-		
-	}
-
+		  return updatedVerse;
+		});
+	  };
 
   return (
     <>
