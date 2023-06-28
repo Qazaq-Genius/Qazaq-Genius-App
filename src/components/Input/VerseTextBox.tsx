@@ -1,14 +1,19 @@
+import { useState } from "react";
+
 interface TextBoxProps {
     name: string;
     placeholder?: string;
     className?: string;
-	changeHandler: any,
 	value: string,
 	index: number,
 	language: string,
+	changeHandler: any,
+	onPasteHandler: any
+
 }
 
 const VerseTextBox = (props: TextBoxProps) => {
+	const [isPaste, setPaste] = useState(false)
     let placeholder = props.placeholder ?? "";
     let className = props.className ?? "";
 
@@ -19,10 +24,20 @@ const VerseTextBox = (props: TextBoxProps) => {
 		var language = props.language
 
 		// Parent fuction mit Argumenten aufrufen 
-		props.changeHandler(value, index, language)
+		if(!isPaste){
+			props.changeHandler(value, index, language)
+		}else
+		setPaste(false)
 	}
+
+	const onPasteHandler = (event: any) =>  {
+		setPaste(true)
+		props.onPasteHandler(event.clipboardData.getData('text'), props.index)
+	}
+
+
 	return (
-        <input type="text" value={props.value} placeholder={`${placeholder}`} onChange={inputChangeHandler} className={`border-gray-300 bg-white bg-opacity-80 focus:bg-opacity-95 h-10 rounded-md focus:outline-none px-2 ${className}`} name={props.name}/>
+        <input type="text" onPaste={onPasteHandler} value={props.value} placeholder={`${placeholder}`} onChange={inputChangeHandler} className={`border-gray-300 bg-white bg-opacity-80 focus:bg-opacity-95 h-10 rounded-md focus:outline-none px-2 ${className}`} name={props.name}/>
     );
 };
 

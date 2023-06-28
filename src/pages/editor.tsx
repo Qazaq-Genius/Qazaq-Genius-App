@@ -11,10 +11,10 @@ interface Artist{
 }
 
 interface Verse{
-	lat:string,
-	cyr: string,
-	rus: string,
-	eng: string
+	lat?: string,
+	cyr?: string,
+	rus?: string,
+	eng?: string
 }
 
 const Editor: React.FC = () => {
@@ -69,6 +69,26 @@ const Editor: React.FC = () => {
 			const updatedLanguage = [...languages, language];
 			setLanguages(updatedLanguage);
 		  }
+	}
+
+	const pastedVerse = (VerseText: string, verseIndex: keyof Verse) => {
+		let splittedText = VerseText.trim().split('\n')
+		let sortedLang = ['cyr','eng','rus']
+
+		
+		setVerse((prev) => {
+			var updateVerse = [...prev]
+
+			
+
+			sortedLang.forEach((lang, index) => {
+				updateVerse[verseIndex][lang] = splittedText[index]
+			})
+
+			return updateVerse
+		})
+		
+		
 	}
 
 
@@ -154,16 +174,16 @@ const Editor: React.FC = () => {
 							<fieldset className="flex flex-col rounded-md p-2 justify-center gap-2 bg-white bg-opacity-40">
 								<legend className="bg-white text-black rounded-md px-2">Line {index+1}</legend>
 								{languages.includes('cyr') && (
-								<VerseTextBox changeHandler={setVerseValue} language='cyr' index={index} value={value.cyr} name="line-cyr" placeholder="қазақша" className="md:min-w-[50rem]"/>
+								<VerseTextBox changeHandler={setVerseValue} onPasteHandler={pastedVerse} language='cyr' index={index} value={value.cyr} name="line-cyr" placeholder="қазақша" className="md:min-w-[50rem]"/>
 								)}
 								{languages.includes('lat') && (
-								<VerseTextBox changeHandler={setVerseValue} language='lat' index={index} value={value.lat} name="line-lat" placeholder="qazaqşa"/>
+								<VerseTextBox changeHandler={setVerseValue} onPasteHandler={pastedVerse} language='lat' index={index} value={value.lat} name="line-lat" placeholder="qazaqşa"/>
 								)}
 								{languages.includes('eng') && (
-								<VerseTextBox changeHandler={setVerseValue} language='eng' index={index} value={value.eng} name="line-eng" placeholder="english"/>
+								<VerseTextBox changeHandler={setVerseValue} onPasteHandler={pastedVerse} language='eng' index={index} value={value.eng} name="line-eng" placeholder="english"/>
 								)}
 								{languages.includes('rus') && (
-								<VerseTextBox changeHandler={setVerseValue} language='rus' index={index} value={value.rus} name="line-rus" placeholder="russian"/>
+								<VerseTextBox changeHandler={setVerseValue} onPasteHandler={pastedVerse} language='rus' index={index} value={value.rus} name="line-rus" placeholder="russian"/>
 								)}
 							</fieldset>
 							</>
