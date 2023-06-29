@@ -4,6 +4,8 @@ import TextBox from "../components/Input/TextBox";
 import ArtistTextBox from "../components/Input/ArtistTextBox";
 import React, { useState } from 'react';
 import VerseTextBox from "@/components/Input/VerseTextBox";
+import submitForm from "@/helper/submitForm";
+import { ToastContainer } from "react-toastify";
 
 interface Artist {
 	lat: string,
@@ -102,6 +104,12 @@ const Editor: React.FC = () => {
 		});
 	};
 
+	// song wird submitted
+	const submitSong = (e: any) => {
+		submitForm(e, artists, verse) 
+	}
+
+
 
 	return (
 		<>
@@ -109,7 +117,7 @@ const Editor: React.FC = () => {
 				<div>
 					<div className="flex flex-col justify-center items-center">
 						<div className="text-2xl white my-4 mt-8 text-white font-medium">Add New Song</div>
-						<form method="POST" className="w-full md:min-w-[66.66667%]">
+						<form method="POST" className="w-full md:min-w-[66.66667%]" onSubmit={submitSong}>
 							<fieldset className="flex flex-col md:flex-row border-2 border-white border-opacity-50   bg-pink-300 lg:w-1/2 lg:m-auto rounded-md px-2 py-2 m-2 justify-center gap-2">
 								<legend className="bg-white text-black rounded-md px-2">Languages</legend>
 								<CheckboxItem clickHandler={languageHandler} id="rus" text="Russian" />
@@ -134,8 +142,8 @@ const Editor: React.FC = () => {
 							<fieldset className="flex flex-col border-2 border-white border-opacity-50 lg:w-1/2 lg:m-auto bg-pink-300 rounded-md px-2 py-2 m-2 justify-center gap-2 items-center">
 								<legend className="bg-white text-black rounded-md px-2">Artists</legend>
 								<div className="flex justify-between m-1 mt-2 mx-2 gap-2">
-									<TextBox name="artist-1-cyr" placeholder="қазақша" className="md:w-96 lg:w-80 w-full" />
-									<TextBox name="artist-1-lat" placeholder="qazaqşa" className="md:w-96 lg:w-80 w-full" />
+									<TextBox name="artist-cyr" placeholder="қазақша" className="md:w-96 lg:w-80 w-full" />
+									<TextBox name="artist-lat" placeholder="qazaqşa" className="md:w-96 lg:w-80 w-full" />
 									<div className="w-0 md:w-4"></div>
 								</div>
 
@@ -207,6 +215,7 @@ const Editor: React.FC = () => {
 						</form>
 					</div>
 				</div>
+				<ToastContainer />
 			</main>
 		</>
 	);
