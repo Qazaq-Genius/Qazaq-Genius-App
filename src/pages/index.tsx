@@ -11,7 +11,7 @@ export async function getStaticProps() {
     Authorization: `Bearer ${process.env.LYRICS_API_JWT}`
   }};
 
-  //the API gives an Array back looking like this [50000001,50000002,50000003]
+  //the API gives an Array back looking like this [50000001, 50000002, 50000003]
   const { data: songList } = await axios.get(lyricsApi + '/songs', headers);
 
   //we need to get the data for each song from /song/[id] and put it into an songData array
@@ -19,8 +19,7 @@ export async function getStaticProps() {
     songList.map(async (songId: any) => {
       const { data: song } = await axios.get(lyricsApi + `/song/${songId}`, headers);
       return song;
-    }
-    )
+    })
   );
 
   return {
