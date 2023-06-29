@@ -31,7 +31,7 @@ export async function getStaticProps({ params }: any) {
     lyricsApi + '/song/' + params.id,
     {
       headers: {
-        Authorization: `Bearer " + ${process.env.LYRICS_API_JWT}`
+        Authorization: `Bearer ${process.env.LYRICS_API_JWT}`
     }}
   );
 
