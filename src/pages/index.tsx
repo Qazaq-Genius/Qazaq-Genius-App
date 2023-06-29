@@ -59,7 +59,7 @@ const HomePage: React.FC = ({songData}: any) => {
                 <div key={song.title_lat} className="flex flex-row items-start flex-nowrap" >
                 <div className="relative h-16 w-16 self-center flex-shrink-0 mr-10"> {/*Size of the image is specified here*/}
                   <Image
-                      src={song.cover_art}
+                      src={song.cover_art ?? '/apple-touch-icon.png'}
                       alt={`Cover art: ${song.title_lat}`}
                       fill
                       style={{
