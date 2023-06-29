@@ -16,3 +16,15 @@ export interface Lyrics {
     original_lang: string;
     words: Word[];
   }
+
+export interface Artist {
+	lat: string,
+	cyr: string
+}
+
+export interface Verse {
+	lat?: string,
+	cyr?: string,
+	rus?: string,
+	eng?: string
+}

@@ -6,18 +6,9 @@ import React, { useState } from 'react';
 import VerseTextBox from "@/components/Input/VerseTextBox";
 import submitForm from "@/helper/submitForm";
 import { ToastContainer } from "react-toastify";
+import { Verse, Artist } from '../types';
 
-interface Artist {
-	lat: string,
-	cyr: string
-}
 
-interface Verse {
-	lat?: string,
-	cyr?: string,
-	rus?: string,
-	eng?: string
-}
 
 const Editor: React.FC = () => {
 

@@ -1,8 +1,10 @@
 import {ToastContainer, toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import axios from "axios";
+import { Verse, Artist } from '../types';
 
-const submitForm = async (e: any, artists: Array<object>, verse: Array<object>) => {
+
+const submitForm = async (e: any, artists: Array<Artist>, verse: Array<Verse>) => {
 	e.preventDefault()
 
 	// Formular Daten holen 
