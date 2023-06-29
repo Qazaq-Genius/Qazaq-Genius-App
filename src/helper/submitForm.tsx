@@ -7,7 +7,7 @@ import { Verse, Artist } from '../types';
 const submitForm = async (e: any, artists: Array<Artist>, verse: Array<Verse>) => {
 	e.preventDefault()
 
-	// Formular Daten holen 
+	// Formular Daten holen
 	let formData = Object.fromEntries(new FormData(e.target).entries());
 
 
@@ -52,7 +52,7 @@ const submitForm = async (e: any, artists: Array<Artist>, verse: Array<Verse>) =
 			'Content-Type': 'application/json'
 		  }
 		});
-	  
+
 		if (response.status === 200) {
 		  if (response.data.redirect) {
 			window.location.href = response.data.redirect;

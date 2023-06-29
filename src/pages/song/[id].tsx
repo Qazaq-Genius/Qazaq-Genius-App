@@ -10,7 +10,7 @@ export async function getStaticPaths() {
     lyricsApi + '/songs',
     {
       headers: {
-        Authorization: `Bearer " + ${process.env.LYRICS_API_JWT}`
+        Authorization: `Bearer ${process.env.LYRICS_API_JWT}`
       }}
     )).data;
 
@@ -34,6 +34,7 @@ export async function getStaticProps({ params }: any) {
         Authorization: `Bearer ${process.env.LYRICS_API_JWT}`
     }}
   );
+
 
   return {
     props: {
