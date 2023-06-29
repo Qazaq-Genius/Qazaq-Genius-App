@@ -13,7 +13,13 @@ export async function getStaticProps() {
   //we need to get the data for each song from /song/[id] and put it into an songData array
   const songData = await Promise.all(
     songList.map(async (songId: any) => {
-      const { data: song } = await axios.get(lyricsApi + `/song/${songId}`);
+      const { data: song } = await axios.get(
+        lyricsApi + `/song/${songId}`,
+        {
+          headers:{
+            Authorization: `Bearer " + ${process.env.LYRICS_API_JWT}`
+        }}
+      );
       return song;
     }
     )

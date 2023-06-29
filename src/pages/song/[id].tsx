@@ -6,7 +6,14 @@ const lyricsApi = process.env.LYRICS_API_HOST;
 
 
 export async function getStaticPaths() {
-  const songs = (await axios.get(lyricsApi + '/songs')).data;
+  const songs = (await axios.get(
+    lyricsApi + '/songs',
+    {
+      headers: {
+        Authorization: `Bearer " + ${process.env.LYRICS_API_JWT}`
+      }}
+    )).data;
+
   const paths = songs.map((id: any) => ({
     params: {
       id: id.toString(),
@@ -20,7 +27,14 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }: any) {
-  const { data: songData } = await axios.get(lyricsApi + '/song/' + params.id);
+  const { data: songData } = await axios.get(
+    lyricsApi + '/song/' + params.id,
+    {
+      headers: {
+        Authorization: `Bearer " + ${process.env.LYRICS_API_JWT}`
+    }}
+  );
+
   return {
     props: {
       songData,

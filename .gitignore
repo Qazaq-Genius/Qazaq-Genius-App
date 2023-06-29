@@ -2,6 +2,7 @@
 
 # production config
 .env.production
+.env.local
 
 # dependencies
 /node_modules
