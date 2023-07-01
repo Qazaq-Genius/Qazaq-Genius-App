@@ -8,7 +8,9 @@ const submitForm = async (e: any, artists: Array<Artist>, verse: Array<Verse>) =
 	e.preventDefault();
 
 	// Formular Daten holen
-	let formData = Object.fromEntries(new FormData(e.target).entries());
+	let formData = Object.fromEntries(
+		new FormData(e.target).entries()
+	);
 
 	let finalData: {[key: string]: any} = {};
 
@@ -56,6 +58,7 @@ const submitForm = async (e: any, artists: Array<Artist>, verse: Array<Verse>) =
 
 
 	try {
+		console.log(finalData);
 		const response = await axios.post('/api/song', finalData, {
 		  headers: {
 			'Accept': 'application/json',
@@ -65,7 +68,7 @@ const submitForm = async (e: any, artists: Array<Artist>, verse: Array<Verse>) =
 
 		if (response.status === 200) {
 			if (response.data.redirect) {
-			window.location.href = response.data.redirect;
+				window.location.href = response.data.redirect;
 			}
 		} else {
 			toast(response.data.error.message ?? 'something went wrong');

@@ -7,8 +7,9 @@ const lyricsApi = process.env.LYRICS_API_HOST;
 const khyay = localFont({ src: '../../styles/Khyay-Regular.ttf' })
 
 export async function getStaticProps() {
-  let headers = {headers: {
-    Authorization: `Bearer ${process.env.LYRICS_API_JWT}`
+  let headers = {
+    headers: {
+      Authorization: `Bearer ${process.env.LYRICS_API_JWT}`
   }};
 
   //the API gives an Array back looking like this [50000001, 50000002, 50000003]
@@ -16,10 +17,9 @@ export async function getStaticProps() {
 
   //we need to get the data for each song from /song/[id] and put it into an songData array
   const songData = await Promise.all(
-    songList.map(async (songId: any) => {
-      const { data: song } = await axios.get(lyricsApi + `/song/${songId}`, headers);
-      return song;
-    })
+    songList.map(async (songId: any) =>
+      (await axios.get(lyricsApi + `/song/${songId}`, headers)).data
+    )
   );
 
   return {
