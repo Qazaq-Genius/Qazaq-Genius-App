@@ -7,8 +7,8 @@ export interface SongProps {
   id: number;
   title_cyr: string;
   title_lat: string;
-  cover_art: string;
-  release_date: string;
+  cover_art?: string;
+  release_date?: string;
   artists: {
     id: number;
     name_cyr: string;
@@ -90,10 +90,6 @@ const renderLyrics = (lyrics: Record<string, Record<string, any>>) => {
 };
 
 const Song: React.FC<SongProps> = ({ id, release_date, title_cyr, title_lat, artists, lyrics, cover_art }) => {
-  // we need to format the release date with locale because every client will have a different locale
-  // and this destroys the hydration
-  const formattedReleaseDate = (new Date(Date.parse(release_date))).toLocaleDateString('en-GB');
-
   return (
     <>
       <hr className='border-solid mt-2 border-gray-500' />

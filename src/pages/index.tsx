@@ -6,18 +6,19 @@ import Link from 'next/link'
 const lyricsApi = process.env.LYRICS_API_HOST;
 const khyay = localFont({ src: '../../styles/Khyay-Regular.ttf' })
 
-
-
 export async function getStaticProps() {
-  //the API gives an Array back looking like this [50000001,50000002,50000003]
-  const { data: songList } = await axios.get(lyricsApi + '/songs');
+  let headers = {
+    headers: {
+      Authorization: `Bearer ${process.env.LYRICS_API_JWT}`
+  }};
+
+  //the API gives an Array back looking like this [50000001, 50000002, 50000003]
+  const { data: songList } = await axios.get(lyricsApi + '/songs', headers);
 
   //we need to get the data for each song from /song/[id] and put it into an songData array
   const songData = await Promise.all(
-    songList.map(async (songId: any) => {
-      const { data: song } = await axios.get(lyricsApi + `/song/${songId}`);
-      return song;
-    }
+    songList.map(async (songId: any) =>
+      (await axios.get(lyricsApi + `/song/${songId}`, headers)).data
     )
   );
 
@@ -37,7 +38,7 @@ const HomePage: React.FC = ({songData}: any) => {
             QAZAQ GENIUS
           </span>
           <input
-            className="border-1 border-gray-300 bg-white h-10 rounded-md focus:outline-none text-center w-11/12 md:w-3/6 lg:w-3/6 xl:w-2/6"
+            className="border-gray-300 bg-white h-10 rounded-md focus:outline-none px-2 text-center w-11/12 md:w-3/6 lg:w-3/6 xl:w-2/6"
             type="search"
             name="search"
             placeholder="Type in a song name"
@@ -50,7 +51,7 @@ const HomePage: React.FC = ({songData}: any) => {
                 <div key={song.title_lat} className="flex flex-row items-start flex-nowrap" >
                 <div className="relative h-16 w-16 self-center flex-shrink-0 mr-10"> {/*Size of the image is specified here*/}
                   <Image
-                      src={song.cover_art}
+                      src={song.cover_art ?? '/apple-touch-icon.png'}
                       alt={`Cover art: ${song.title_lat}`}
                       fill
                       style={{

@@ -1,6 +1,14 @@
 module.exports = {
-  purge: [],
-  darkMode: false, // or 'media' or 'class'
+  content: [
+    './public/**/*.html',
+    './src/**/*.{js,jsx,ts,tsx,vue}',
+  ],
+  safelist: [
+    {
+      pattern: /bg-(highlight)-*/
+    },
+  ],
+  media: 'media',
   theme: {
     extend: {
       colors: {
@@ -9,6 +17,7 @@ module.exports = {
         'highlight-blue':         '#aedef8',
         'highlight-yellow':       '#ffff4f',
         'highlight-dark-yellow':  '#ffff0077',
+        'background':             '#90B9D7'
       },
       margin: {
         '30%':   '30%',
@@ -26,7 +35,5 @@ module.exports = {
   variants: {
     extend: {},
   },
-  plugins: [
-    require('@tailwindcss/line-clamp'), //plugin to use line-clamp-2
-  ],
+  plugins: [],
 }
