@@ -22,7 +22,7 @@ const ArtistTextBox = (props: TextBoxProps) => {
 		props.changeHandler(value, index, language)
 	}
 	return (
-        <input key={ "input" + props.language}  type="text" value={props.value} placeholder={`${placeholder}`} onChange={inputChangeHandler} className={`border-background border-2 bg-white bg-opacity-80 focus:bg-opacity-95 h-10 rounded-md focus:outline-none px-2 ${className}`} name={props.name}/>
+        <input key={ "input" + props.language}  type="text" value={props.value} placeholder={`${placeholder}`} onChange={inputChangeHandler} className={`border-background border-2 bg-white h-10 rounded-md focus:outline-none px-2 ${className}`} name={props.name}/>
     );
 };
 

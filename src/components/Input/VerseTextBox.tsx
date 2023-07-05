@@ -37,7 +37,7 @@ const VerseTextBox = (props: TextBoxProps) => {
 
 
 	return (
-        <input type="text" onPaste={onPasteHandler} value={props.value} placeholder={`${placeholder}`} onChange={inputChangeHandler} className={`border-background border-2 bg-white bg-opacity-80 focus:bg-opacity-95 h-10 rounded-md focus:outline-none px-2 ${className}`} name={props.name}/>
+        <input type="text" onPaste={onPasteHandler} value={props.value} placeholder={`${placeholder}`} onChange={inputChangeHandler} className={`border-background border-2 bg-white h-10 rounded-md focus:outline-none px-2 ${className}`} name={props.name}/>
     );
 };
 
