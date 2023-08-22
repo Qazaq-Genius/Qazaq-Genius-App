@@ -1,6 +1,13 @@
 import '../../styles/global.css'
 import type { AppProps } from 'next/app'
 import Head from 'next/head'
+import { Roboto } from 'next/font/google';
+
+const roboto = Roboto({
+    weight: ['300', '400', '500'],
+    subsets: ['latin', 'cyrillic', 'cyrillic-ext', 'latin-ext'],
+    display: 'swap',
+})
 
 export default function App({ Component, pageProps }: AppProps) {
   return <>
@@ -17,6 +24,8 @@ export default function App({ Component, pageProps }: AppProps) {
           <meta property="og:description" content="Qazaq Genius is a website that provides lyrics and translations of Kazakh songs."/>
           <meta property="og:image" content="https://repository-images.githubusercontent.com/609835063/bddcb5ea-6fcd-4b3f-852f-808042a7d50f"/>
         </Head>
-    <Component {...pageProps} />
+        <main className={`${roboto.className} font-normal`}>
+          <Component  {...pageProps}/>
+        </main>
   </>
 }
