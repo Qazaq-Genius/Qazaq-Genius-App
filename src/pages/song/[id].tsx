@@ -2,11 +2,12 @@ import axios from "axios";
 import SongOverview from "../../components/SongOverview";
 
 const lyricsApi = process.env.LYRICS_API_HOST;
+const jwt = process.env.LYRICS_API_JWT;
 
 export async function getStaticPaths() {
   const header = {
     headers: {
-      Authorization: `Bearer ${process.env.LYRICS_API_JWT}`,
+      Authorization: `Bearer ${jwt}`,
     },
   };
 
@@ -26,7 +27,7 @@ export async function getStaticPaths() {
 export async function getStaticProps({ params }: any) {
   const header = {
     headers: {
-      Authorization: `Bearer ${process.env.LYRICS_API_JWT}`,
+      Authorization: `Bearer ${jwt}`,
     },
   };
 
