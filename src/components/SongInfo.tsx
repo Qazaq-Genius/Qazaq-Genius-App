@@ -1,9 +1,9 @@
 import React from 'react';
 import Image from 'next/image'
-import { SongProps } from '../components/Song';
+import { Song } from '@/types';
 
 
-const SongInfo: React.FC<SongProps> = ({ title_cyr, release_date, title_lat, artists, cover_art }) => {
+const SongInfo: React.FC<Song> = ({ title_cyr, release_date, title_lat, artists, cover_art }) => {
     // we need to format the release date with locale because every client will have a different locale
     // and this destroys the hydration
     let formattedReleaseDate = '';
