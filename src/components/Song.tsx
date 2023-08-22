@@ -1,21 +1,6 @@
 import React from 'react';
-import { Lyrics, Word } from '../types';
+import { Lyrics, Word, Song } from '../types';
 import SongInfo from '../components/SongInfo';
-
-
-export interface SongProps {
-  id: number;
-  title_cyr: string;
-  title_lat: string;
-  cover_art?: string;
-  release_date?: string;
-  artists: {
-    id: number;
-    name_cyr: string;
-    name_lat: string;
-  }[];
-  lyrics: Record<string, Record<string, any>>;
-}
 
 
 const renderLine = (line: string, lang: string, words: Word[]) => {
@@ -89,7 +74,7 @@ const renderLyrics = (lyrics: Record<string, Record<string, any>>) => {
   });
 };
 
-const Song: React.FC<SongProps> = ({ id, release_date, title_cyr, title_lat, artists, lyrics, cover_art }) => {
+const Song: React.FC<Song> = ({ id, release_date, title_cyr, title_lat, artists, lyrics, cover_art }) => {
   return (
     <>
       <hr className='border-solid mt-2 border-gray-500' />

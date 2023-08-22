@@ -12,6 +12,16 @@ const nextConfig = {
         hostname: 'i.ytimg.com',
         port: ''
       },
+      {
+        protocol: 'https',
+        hostname: 'i.scdn.co',
+        port: ''
+      },
+      {
+        protocol: 'https',
+        hostname: 'i1.sndcdn.com',
+        port: ''
+      },
     ],
   },
 }

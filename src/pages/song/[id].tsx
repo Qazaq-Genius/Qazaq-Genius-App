@@ -10,7 +10,7 @@ export async function getStaticPaths() {
     },
   };
 
-  const songs = await axios.get(lyricsApi + "/songs", header);
+  const songs = await axios.get(lyricsApi + "/songs/id", header);
   const paths = songs.data.map((id: any) => ({
     params: {
       id: id.toString(),

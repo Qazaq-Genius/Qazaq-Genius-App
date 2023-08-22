@@ -28,3 +28,17 @@ export interface Verse {
 	rus?: string,
 	eng?: string
 }
+
+export interface Song {
+  id: number;
+  title_cyr: string;
+  title_lat: string;
+  cover_art?: string;
+  release_date?: string;
+  artists: {
+    id: number;
+    name_cyr: string;
+    name_lat: string;
+  }[];
+  lyrics: Record<string, Record<string, any>>;
+}
