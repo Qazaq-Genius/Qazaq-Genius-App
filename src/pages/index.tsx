@@ -5,7 +5,6 @@ import Link from 'next/link'
 
 import React, { useState } from 'react';
 
-const lyricsApi = process.env.LYRICS_API_HOST;
 const khyay = localFont({ src: '../../styles/Khyay-Regular.ttf' })
 
 const HomePage: React.FC = () => {
