@@ -73,6 +73,7 @@ const editor = () => {
 const [songData, setSongData] = useState(orig_data);
 const [stagedLine, setStagedLine] = useState({});
 const [showModal, setShowModal] = useState(false);
+const [selectedColor, setSelectedColor] = useState('highlight-green');
 
 	  const getFirstParentDiv = (element : any) => {
 		let parent = element.parentNode;
@@ -273,7 +274,7 @@ const renderLine = (line: string, lang: string, words: Word[]) => {
 			var nextNumber = position[0];
 
 			if (nextNumber == 'new') {
-				nextNumber = 4;
+				nextNumber = selectedColor;
 			}
 
 			var markTags = ["<"+nextNumber+">", "</"+nextNumber+">"];
@@ -285,9 +286,20 @@ const renderLine = (line: string, lang: string, words: Word[]) => {
 		return newSingleLine;
 	}
 
+	function setSelectedTagColor(color: string) {
+		setSelectedColor(color);
+	}
+
 
 	return(
 		<div className='m-auto bg-white w-1/3 sm:w-1/2'>
+			<h2 className="text-3xl">Choose a color</h2>
+			<div className='flex content-between gap-2 mb-2'>
+				<button onClick={() => setSelectedTagColor("highlight-green")} className={`h-8 w-8 bg-highlight-green ${selectedColor == "highlight-green" && "border-red-500 border"}`}></button>
+				<button onClick={() => setSelectedTagColor("highlight-pink")} className='h-8 w-8 bg-highlight-pink'></button>
+				<button onClick={() => setSelectedTagColor("highlight-blue")} className='h-8 w-8 bg-highlight-blue'></button>
+				<button onClick={() => setSelectedTagColor("highlight-yellow")} className='h-8 w-8 bg-highlight-yellow'></button>
+			</div>
 			{Object.values(songData).map((line, i) => {
 
 					return(
