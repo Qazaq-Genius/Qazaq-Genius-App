@@ -14,7 +14,7 @@ const editor = () => {
 			"line_nr": 1,
 			"qazaq_cyr": "<0>Ð‘Ñ–Ñ€Ñ–Ò£<\/0> Ð±Ð°ÑƒÑ‹Ñ€, Ð±Ñ–Ñ€Ñ–Ò£ <1>Ð´Ð¾Ñ<\/1>",
 			"qazaq_lat": "<0>BÄ±rÄ±Ã±<\/0> bauyr, bÄ±rÄ±Ã± <1>dos<\/1>",
-			"english": "<0>Someone<\/0> is a brother, someone is a <1>friend<\/1>",
+			"english": "<0>Someone</0> is a brother, <0>someone</0> is a <1>friend</1>",
 			"russian": "<0>ÐšÑ‚Ð¾-Ñ‚Ð¾<\/0> Ð±Ñ€Ð°Ñ‚, ÐºÑ‚Ð¾-Ñ‚Ð¾ <1>Ð´Ñ€ÑƒÐ³<\/1>",
 			"original_lang": "qazaq_cyr",
 			"words": []
@@ -69,11 +69,15 @@ const editor = () => {
 	}
 		
 ]
-
+const colors = {
+	0:'highlight-green',
+	1:'highlight-pink',
+	2:'highlight-blue',
+	3:'highlight-yellow'
+}
 const [songData, setSongData] = useState(orig_data);
-const [stagedLine, setStagedLine] = useState({});
 const [showModal, setShowModal] = useState(false);
-const [selectedColor, setSelectedColor] = useState('highlight-green');
+const [selectedColor, setSelectedColor] = useState(0);
 
 	  const getFirstParentDiv = (element : any) => {
 		let parent = element.parentNode;
@@ -115,15 +119,14 @@ const [selectedColor, setSelectedColor] = useState('highlight-green');
 		var startPosition = getSelectionStartPosition(lineDivId);
 	  
 		if (selectedText && startPosition !== -1) {
-		  var endPosition = startPosition + selectedText.length;
+			var endPosition = startPosition + selectedText.length;	
+			var newPositions = calculateNewPosition(getCurrentHiglightPositions(lineWithTags), startPosition, endPosition)
+			var lineWithouTags = getSingleLineWithOutTags(lineWithTags)
+			var newSingleLine = saveNewPositions(newPositions, lineWithouTags)	
+	
+			songData[lineNumber -1][language] = newSingleLine;
 
-		  var newPositions = calculateNewPosition(getCurrentHiglightPositions(lineWithTags), startPosition, endPosition)
-		  var lineWithouTags = getSingleLineWithOutTags(lineWithTags)
-		  var newSingleLine = saveNewPositions(newPositions, lineWithouTags)
-
-		  var newLineData = {'line_nr': lineNumber, 'language': language, 'line': newSingleLine}
-		  setStagedLine(newLineData)
-		  setShowModal(true)
+			setSongData([...songData])
 		}
 	}
 
@@ -161,6 +164,7 @@ const [selectedColor, setSelectedColor] = useState('highlight-green');
 			// LastIndex ohne tags (<0>) berechnen und setzen 
 			regex.lastIndex = match.index + match[1].length;
 		}
+
 		return positions;
 	}
 
@@ -258,16 +262,19 @@ const renderLine = (line: string, lang: string, words: Word[]) => {
 
 
 	function getSingleLineWithOutTags(singleLine: string) {
+		console.log("in", singleLine)
 		var regex = /<\d+>(.*?)<\/\d+>/g;
 		var match;
 		while ((match = regex.exec(singleLine)) !== null) {
 			singleLine = singleLine.replace(match[0], match[1]);
+			regex.lastIndex = match.index + match[1].length;
 		}
-
 		return singleLine;
 	}
 
 	function saveNewPositions(newPositions: any[], singleLine: string) {
+		// console.log("pos:  ",newPositions)
+		// console.log("single: ",singleLine)
 		var newSingleLine = singleLine;
 		var offset = 0;
 		newPositions.forEach((position) => {
@@ -283,22 +290,23 @@ const renderLine = (line: string, lang: string, words: Word[]) => {
 			offset += markTags[0].length + markTags[1].length;
 
 		})
+		// console.log("new: ",newSingleLine)
 		return newSingleLine;
 	}
 
-	function setSelectedTagColor(color: string) {
-		setSelectedColor(color);
+	function setSelectedTagColor(colorIndex: number) {
+		setSelectedColor(colorIndex);
 	}
 
 
 	return(
 		<div className='m-auto bg-white w-1/3 sm:w-1/2'>
 			<h2 className="text-3xl">Choose a color</h2>
-			<div className='flex content-between gap-2 mb-2'>
-				<button onClick={() => setSelectedTagColor("highlight-green")} className={`h-8 w-8 bg-highlight-green ${selectedColor == "highlight-green" && "border-red-500 border"}`}></button>
-				<button onClick={() => setSelectedTagColor("highlight-pink")} className='h-8 w-8 bg-highlight-pink'></button>
-				<button onClick={() => setSelectedTagColor("highlight-blue")} className='h-8 w-8 bg-highlight-blue'></button>
-				<button onClick={() => setSelectedTagColor("highlight-yellow")} className='h-8 w-8 bg-highlight-yellow'></button>
+			<div className='flex content-between gap-2 mb-2 ms-2'>
+				<button onClick={() => setSelectedTagColor(0)} className={`h-8 w-8 bg-highlight-green ${selectedColor == 0 && "border-cyan-800 border-2 rounded"}`}></button>
+				<button onClick={() => setSelectedTagColor(1)} className={`h-8 w-8 bg-highlight-pink ${selectedColor == 1 && "border-cyan-800 border-2 rounded"}`}></button>
+				<button onClick={() => setSelectedTagColor(2)} className={`h-8 w-8 bg-highlight-blue ${selectedColor == 2 && "border-cyan-800 border-2 rounded"}`}></button>
+				<button onClick={() => setSelectedTagColor(3)} className={`h-8 w-8 bg-highlight-yellow ${selectedColor == 3 && "border-cyan-800 border-2 rounded"}`}></button>
 			</div>
 			{Object.values(songData).map((line, i) => {
 
@@ -335,7 +343,6 @@ const renderLine = (line: string, lang: string, words: Word[]) => {
 			}
 
 			{showModal &&      <Modal title={"Choose Tag"} onClose={() => setShowModal(false)}>
-            	{stagedLine.line}
             </Modal> }
 			<div id="modal-root"></div>
 		</div>
